@@ -1,7 +1,8 @@
-import gameConfig from '../../config/game'
+import State from './State'
+import Input from './Input'
 import Display from './Display'
 import Graphics from './Graphics'
-import State from './State'
+import gameConfig from '../../config/game'
 
 interface GameProps {
   title: string,
@@ -17,6 +18,9 @@ class Game {
     document.title = title
 
     this.display = new Display(width, height)
+
+    // Start Input Listener
+    Input.listen()
   }
 
   async start () {
