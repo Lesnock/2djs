@@ -2,7 +2,6 @@ import Controller from './Controller'
 
 class KeyboardController extends Controller {
   name = 'keyboard'
-  keys: { [name: string]: boolean } = {}
 
   listener () {
     // Key Down
