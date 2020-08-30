@@ -1,8 +1,9 @@
 import State from './State'
-import Input from './Input'
+import Input from './input/Input'
 import Display from './Display'
 import Graphics from './Graphics'
 import gameConfig from '../../config/game'
+import KeyboardController from './input/controllers/KeyboardController'
 
 interface GameProps {
   title: string,
@@ -20,7 +21,8 @@ class Game {
     this.display = new Display(width, height)
 
     // Start Input Listener
-    Input.listen()
+    Input.addController(new KeyboardController())
+    Input.listener()
   }
 
   async start () {
@@ -40,6 +42,7 @@ class Game {
   }
 
   update (dt: number) {
+    Input.update()
     this.initialState?.update(dt)
   }
 

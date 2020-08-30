@@ -14,20 +14,8 @@ class GameState extends State {
   }
 
   update (dt: number) {
-    if (Input.get('ArrowRight') || Input.get('KeyD')) {
-      this.blockX += this.blockVelocity * dt
-    }
-
-    if (Input.get('ArrowLeft')) {
+    if (Input.get('KeyA')) {
       this.blockX -= this.blockVelocity * dt
-    }
-
-    if (Input.get('ArrowDown')) {
-      this.blockY += this.blockVelocity * dt
-    }
-
-    if (Input.get('ArrowUp')) {
-      this.blockY -= this.blockVelocity * dt
     }
   }
 
