@@ -1,13 +1,17 @@
+import Graphics from './Graphics'
+
 class Display {
   canvas: HTMLCanvasElement
-  graphics: CanvasRenderingContext2D
+  graphics: Graphics
 
   constructor (width: number, height: number) {
     this.canvas = this.createCanvas(width, height)
 
     document.getElementById('app')?.appendChild(this.canvas)
 
-    this.graphics = <CanvasRenderingContext2D> this.canvas.getContext('2d')
+    this.graphics = new Graphics(
+      <CanvasRenderingContext2D> this.canvas.getContext('2d')
+    )
   }
 
   createCanvas (width: number, height: number) {

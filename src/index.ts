@@ -1,4 +1,4 @@
-import Game from './core/Game'
+import { Game } from './core'
 
 const game = new Game({
   title: 'Game',

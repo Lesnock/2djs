@@ -1,12 +1,12 @@
-import State from '../core/State/State'
+import { State, Graphics } from '../core'
 
 class GameState extends State {
-  update (dt: number) {
+  update () {
 
   }
 
-  render (g: CanvasRenderingContext2D) {
-    g.fillRect(100, 100, 100, 100)
+  render (g: Graphics) {
+    g.drawRect(100, 100, 100, 100)
   }
 }
 

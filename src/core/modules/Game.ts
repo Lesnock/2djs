@@ -1,6 +1,7 @@
-import gameConfig from '../config/game'
-import Display from './Display/Display'
-import { IState } from './State/State'
+import gameConfig from '../../config/game'
+import Display from './Display'
+import Graphics from './Graphics'
+import State from './State'
 
 interface GameProps {
   title: string,
@@ -10,7 +11,7 @@ interface GameProps {
 
 class Game {
   display: Display
-  initialState?: IState
+  initialState?: State
 
   constructor ({ title, width, height }: GameProps) {
     document.title = title
@@ -25,7 +26,7 @@ class Game {
   }
 
   async loadInitialState () {
-    const imported = await import(`../states/${gameConfig.initialState}`)
+    const imported = await import(`../../states/${gameConfig.initialState}`)
 
     const _stateClass = imported.default
 
@@ -38,7 +39,7 @@ class Game {
     this.initialState?.update(dt)
   }
 
-  render (g: CanvasRenderingContext2D) {
+  render (g: Graphics) {
     this.initialState?.render(g)
   }
 
