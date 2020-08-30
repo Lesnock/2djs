@@ -1,10 +1,15 @@
 import Graphics from './Graphics'
 
 class Display {
-  canvas: HTMLCanvasElement
+  width: number
+  height: number
   graphics: Graphics
+  canvas: HTMLCanvasElement
 
   constructor (width: number, height: number) {
+    this.width = width
+    this.height = height
+
     this.canvas = this.createCanvas(width, height)
 
     document.getElementById('app')?.appendChild(this.canvas)

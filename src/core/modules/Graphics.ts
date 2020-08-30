@@ -5,6 +5,10 @@ class Graphics {
     this.context = context
   }
 
+  clear (displayWidth: number, displayHeight: number) {
+    this.context.clearRect(0, 0, displayWidth, displayHeight)
+  }
+
   drawRect <T extends number> (x: T, y: T, width: T, height: T, color?: string) {
     this.context.save()
 

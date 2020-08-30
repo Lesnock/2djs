@@ -44,6 +44,8 @@ class Game {
   }
 
   render (g: Graphics) {
+    g.clear(this.display.width, this.display.height)
+
     this.initialState?.render(g)
   }
 
