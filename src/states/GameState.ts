@@ -5,7 +5,7 @@ class GameState extends State {
   blockY!: number
   blockVelocity!: number;
 
-  start () {
+  async start () {
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
@@ -17,7 +17,7 @@ class GameState extends State {
       lastname: 'Lesnock'
     })
 
-    console.log(this.globals.get(['name', 'lastname']))
+    console.log(await this.loader.loadImage('images/test.jpg'))
   }
 
   update (dt: number) {

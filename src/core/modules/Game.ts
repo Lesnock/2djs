@@ -4,6 +4,7 @@ import Globals from './Globals'
 import Graphics from './Graphics'
 import Input from './input/Input'
 import gameConfig from '../../config/game'
+import Loader from './loader/Loader'
 
 interface GameProps {
   title: string,
@@ -15,6 +16,7 @@ class Game {
   input: Input
   globals: Globals
   display: Display
+  loader: Loader
   currentState!: State
 
   constructor ({ title, width, height }: GameProps) {
@@ -26,14 +28,17 @@ class Game {
     this.input = new Input()
     this.input.listener()
 
-    // Start Global
+    // Start Globals
     this.globals = new Globals()
+
+    // Start Loader
+    this.loader = new Loader()
   }
 
   async start () {
     await this.loadInitialState()
 
-    this.currentState?.start()
+    await this.currentState?.start()
 
     this.runLoop()
   }
@@ -47,7 +52,8 @@ class Game {
     const initialState = new _stateClass({
       input: this.input,
       globals: this.globals,
-      display: this.display
+      display: this.display,
+      loader: this.loader
     })
 
     this.currentState = initialState
