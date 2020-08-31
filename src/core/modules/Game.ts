@@ -4,7 +4,6 @@ import Globals from './Globals'
 import Graphics from './Graphics'
 import Input from './input/Input'
 import gameConfig from '../../config/game'
-import KeyboardController from './input/controllers/KeyboardController'
 
 interface GameProps {
   title: string,
@@ -25,7 +24,6 @@ class Game {
 
     // Start Input
     this.input = new Input()
-    this.input.addController(new KeyboardController())
     this.input.listener()
 
     // Start Global
@@ -45,6 +43,7 @@ class Game {
 
     const _stateClass = imported.default
 
+    // Instantiate state and pass modules
     const initialState = new _stateClass({
       input: this.input,
       globals: this.globals,

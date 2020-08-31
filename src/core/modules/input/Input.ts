@@ -2,11 +2,16 @@ import { ButtonName } from '../../types'
 import inputConfig from '../../../config/input'
 import { DynamicObject } from '../../interfaces'
 import Controller from './controllers/Controller'
+import KeyboardController from './controllers/KeyboardController'
 
 const controllers: { [name: string]: Controller } = {}
 
 class Input implements DynamicObject {
   [key: string]: Controller | any;
+
+  constructor () {
+    this.addController(new KeyboardController())
+  }
 
   get controllers () {
     return controllers
