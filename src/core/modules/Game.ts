@@ -54,7 +54,6 @@ class Game {
   }
 
   update (dt: number) {
-    this.input.update()
     this.currentState.update(dt)
   }
 

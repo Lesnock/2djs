@@ -48,15 +48,6 @@ class Input {
   }
 
   /**
-   * Update input system
-   */
-  update () {
-    Object.keys(controllers).forEach(controllerName => {
-      controllers[controllerName].update()
-    })
-  }
-
-  /**
    * Add listeners to keyboard keys
    */
   listener () {
