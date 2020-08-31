@@ -17,7 +17,7 @@ class GameState extends State {
       lastname: 'Lesnock'
     })
 
-    console.log(await this.loader.loadImage('images/test.jpg'))
+    console.log(await this.loader.loadImage('/images/test.jpg'))
   }
 
   update (dt: number) {

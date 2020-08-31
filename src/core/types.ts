@@ -1,3 +1,5 @@
+export type ConfigName = 'title' | 'width' | 'height'
+
 export type ButtonName = 'Escape'
   | 'F1'
   | 'F2'
