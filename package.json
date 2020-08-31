@@ -1,5 +1,5 @@
 {
-  "name": "2d-script",
+  "name": "2djs",
   "description": "A 2D JS Engine for Game Creation",
   "version": "1.0.0",
   "main": "index.js",

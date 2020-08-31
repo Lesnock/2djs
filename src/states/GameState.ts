@@ -11,6 +11,11 @@ class GameState extends State {
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
+
+    this.globals.set({
+      name: 'Caio',
+      lastname: 'Lesnock'
+    })
   }
 
   update (dt: number) {
