@@ -1,13 +1,11 @@
 import { State, Graphics, Input } from '../core'
 
 class GameState extends State {
-  blockX: number
-  blockY: number
-  blockVelocity: number
+  blockX!: number
+  blockY!: number
+  blockVelocity!: number
 
-  constructor () {
-    super()
-
+  start () {
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
@@ -16,6 +14,8 @@ class GameState extends State {
       name: 'Caio',
       lastname: 'Lesnock'
     })
+
+    console.log(this.globals.get(['name', 'lastname']))
   }
 
   update (dt: number) {

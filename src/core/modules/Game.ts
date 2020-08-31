@@ -13,7 +13,7 @@ interface GameProps {
 
 class Game {
   display: Display
-  initialState?: State
+  currentState!: State
 
   constructor ({ title, width, height }: GameProps) {
     document.title = title
@@ -28,6 +28,8 @@ class Game {
   async start () {
     await this.loadInitialState()
 
+    this.currentState?.start()
+
     this.runLoop()
   }
 
@@ -38,18 +40,18 @@ class Game {
 
     const initialState = new _stateClass()
 
-    this.initialState = initialState
+    this.currentState = initialState
   }
 
   update (dt: number) {
     Input.update()
-    this.initialState?.update(dt)
+    this.currentState.update(dt)
   }
 
   render (g: Graphics) {
     g.clear(this.display.width, this.display.height)
 
-    this.initialState?.render(g)
+    this.currentState.render(g)
   }
 
   runLoop () {

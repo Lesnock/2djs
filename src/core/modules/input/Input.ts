@@ -1,12 +1,11 @@
 import { ButtonName } from '../../types'
 import inputConfig from '../../../config/input'
+import { DynamicObject } from '../../interfaces'
 import Controller from './controllers/Controller'
 
 const controllers: { [name: string]: Controller } = {}
 
-class Input {
-  [controllerName: string]: any;
-
+class Input implements DynamicObject {
   static controllers = controllers
 
   /**
