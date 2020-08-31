@@ -1,7 +1,8 @@
 import State from './State'
-import Input from './input/Input'
 import Display from './Display'
+import Globals from './Globals'
 import Graphics from './Graphics'
+import Input from './input/Input'
 import gameConfig from '../../config/game'
 import KeyboardController from './input/controllers/KeyboardController'
 
@@ -13,6 +14,7 @@ interface GameProps {
 
 class Game {
   input: Input
+  globals: Globals
   display: Display
   currentState!: State
 
@@ -25,6 +27,9 @@ class Game {
     this.input = new Input()
     this.input.addController(new KeyboardController())
     this.input.listener()
+
+    // Start Global
+    this.globals = new Globals()
   }
 
   async start () {
@@ -42,6 +47,7 @@ class Game {
 
     const initialState = new _stateClass({
       input: this.input,
+      globals: this.globals,
       display: this.display
     })
 

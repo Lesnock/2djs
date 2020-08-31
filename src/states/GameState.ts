@@ -1,4 +1,4 @@
-import { State, Graphics } from '../core'
+import { State, Graphics, Globals } from '../core'
 
 class GameState extends State {
   blockX!: number
@@ -10,14 +10,13 @@ class GameState extends State {
     this.blockY = 100
     this.blockVelocity = 100
 
-    // this.globals.set({
-    //   name: 'Caio',
-    //   lastname: 'Lesnock'
-    // })
+    const globals = new Globals()
+    globals.set({
+      name: 'Caio',
+      lastname: 'Lesnock'
+    })
 
-    // this.globals.set('age', 24)
-
-    // console.log(this.globals.all())
+    console.log(this.globals.get(['name', 'lastname']))
   }
 
   update (dt: number) {

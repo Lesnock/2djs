@@ -1,4 +1,4 @@
-import Global from './Global'
+import Globals from './Globals'
 import Display from './Display'
 import Input from './input/Input'
 import Graphics from './Graphics'
@@ -6,14 +6,18 @@ import Graphics from './Graphics'
 abstract class State {
   input: Input
   display: Display
-  globals: Global
+  globals: Globals
 
   abstract update (dt: number): void;
   abstract render (g: Graphics): void;
 
-  constructor ({ input, display }: any) {
+  /**
+   * Start state - set modules
+   */
+  constructor ({ input, display, globals }: any) {
     this.input = input
     this.display = display
+    this.globals = globals
   }
 
   /**
