@@ -1,18 +1,19 @@
 import { ButtonName } from '../../types'
 import inputConfig from '../../../config/input'
-import { DynamicObject } from '../../interfaces'
 import Controller from './controllers/Controller'
 import KeyboardController from './controllers/KeyboardController'
 
 const controllers: { [name: string]: Controller } = {}
 
-class Input implements DynamicObject {
-  [key: string]: Controller | any;
-
+class Input {
   constructor () {
+    // Keyboard Controller is the default
     this.addController(new KeyboardController())
   }
 
+  /**
+   * Get all available controllers
+   */
   get controllers () {
     return controllers
   }
@@ -35,6 +36,10 @@ class Input implements DynamicObject {
    * Shortcut for method 'get' of main controller
    */
   get (name: ButtonName) {
+    if (!inputConfig.mainController) {
+      throw new Error('mainController config does not exists on input config file')
+    }
+
     if (!controllers[inputConfig.mainController]) {
       throw new Error(`Controller ${inputConfig.mainController} does not exists.`)
     }

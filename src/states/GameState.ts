@@ -11,6 +11,7 @@ class GameState extends State {
     this.blockVelocity = 100
 
     const globals = new Globals()
+
     globals.set({
       name: 'Caio',
       lastname: 'Lesnock'
