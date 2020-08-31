@@ -12,6 +12,7 @@ interface GameProps {
 }
 
 class Game {
+  input: Input
   display: Display
   currentState!: State
 
@@ -20,9 +21,10 @@ class Game {
 
     this.display = new Display(width, height)
 
-    // Start Input Listener
-    Input.addController(new KeyboardController())
-    Input.listener()
+    // Start Input
+    this.input = new Input()
+    this.input.addController(new KeyboardController())
+    this.input.listener()
   }
 
   async start () {
@@ -38,13 +40,16 @@ class Game {
 
     const _stateClass = imported.default
 
-    const initialState = new _stateClass()
+    const initialState = new _stateClass({
+      input: this.input,
+      display: this.display
+    })
 
     this.currentState = initialState
   }
 
   update (dt: number) {
-    Input.update()
+    this.input.update()
     this.currentState.update(dt)
   }
 

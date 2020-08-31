@@ -1,25 +1,27 @@
-import { State, Graphics, Input } from '../core'
+import { State, Graphics } from '../core'
 
 class GameState extends State {
   blockX!: number
   blockY!: number
-  blockVelocity!: number
+  blockVelocity!: number;
 
   start () {
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
 
-    this.globals.set({
-      name: 'Caio',
-      lastname: 'Lesnock'
-    })
+    // this.globals.set({
+    //   name: 'Caio',
+    //   lastname: 'Lesnock'
+    // })
 
-    console.log(this.globals.get(['name', 'lastname']))
+    // this.globals.set('age', 24)
+
+    // console.log(this.globals.all())
   }
 
   update (dt: number) {
-    if (Input.get('KeyA')) {
+    if (this.input.get('KeyA')) {
       this.blockX -= this.blockVelocity * dt
     }
   }
