@@ -1,25 +1,27 @@
-import { State, Graphics, Input } from '../core'
+import { State, Graphics, Globals } from '../core'
 
 class GameState extends State {
   blockX!: number
   blockY!: number
-  blockVelocity!: number
+  blockVelocity!: number;
 
-  start () {
+  async start () {
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
 
-    this.globals.set({
+    const globals = new Globals()
+
+    globals.set({
       name: 'Caio',
       lastname: 'Lesnock'
     })
 
-    console.log(this.globals.get(['name', 'lastname']))
+    console.log(await this.loader.loadImage('/images/test.jpg'))
   }
 
   update (dt: number) {
-    if (Input.get('KeyA')) {
+    if (this.input.get('KeyA')) {
       this.blockX -= this.blockVelocity * dt
     }
   }

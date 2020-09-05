@@ -21,11 +21,6 @@ abstract class Controller {
 
     return this.keys[name]
   }
-
-  /**
-   * Update Controller
-   */
-  update () {}
 }
 
 export default Controller

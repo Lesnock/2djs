@@ -1,31 +1,45 @@
 import { ButtonName } from '../../types'
 import inputConfig from '../../../config/input'
-import { DynamicObject } from '../../interfaces'
 import Controller from './controllers/Controller'
+import KeyboardController from './controllers/KeyboardController'
 
 const controllers: { [name: string]: Controller } = {}
 
-class Input implements DynamicObject {
-  static controllers = controllers
+class Input {
+  constructor () {
+    // Keyboard Controller is the default
+    this.addController(new KeyboardController())
+  }
+
+  /**
+   * Get all available controllers
+   */
+  get controllers () {
+    return controllers
+  }
 
   /**
    * Get Controller instance
    */
-  static getController (name: string) {
+  getController (name: string) {
     return controllers[name]
   }
 
   /**
    * Add Controller to Input system
    */
-  static addController (controller: Controller) {
+  addController (controller: Controller) {
     controllers[controller.name] = controller
   }
 
   /**
    * Shortcut for method 'get' of main controller
    */
-  static get (name: ButtonName) {
+  get (name: ButtonName) {
+    if (!inputConfig.mainController) {
+      throw new Error('mainController config does not exists on input config file')
+    }
+
     if (!controllers[inputConfig.mainController]) {
       throw new Error(`Controller ${inputConfig.mainController} does not exists.`)
     }
@@ -34,18 +48,9 @@ class Input implements DynamicObject {
   }
 
   /**
-   * Update input system
-   */
-  static update () {
-    Object.keys(controllers).forEach(controllerName => {
-      controllers[controllerName].update()
-    })
-  }
-
-  /**
    * Add listeners to keyboard keys
    */
-  static listener () {
+  listener () {
     Object.keys(controllers).forEach(controllerName => {
       controllers[controllerName].listener()
     })

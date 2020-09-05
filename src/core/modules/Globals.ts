@@ -2,11 +2,11 @@ import { DynamicObject } from '../interfaces'
 
 const globalData: DynamicObject = {}
 
-class Global {
+class Globals {
   /**
    * Get data from global data
    */
-  static get (key: string | string[]): any {
+  get (key: string | string[]): any {
     // Sent array
     if (Array.isArray(key)) {
       const data: DynamicObject = {}
@@ -31,20 +31,20 @@ class Global {
   /**
    * Get all global data
    */
-  static all () {
+  all () {
     return globalData
   }
 
   /**
    * Set data to global data
    */
-  static set (key: string | object, data?: any): void {
+  set (key: string | object, data?: any): void {
     // Sent object
     if (typeof key === 'object') {
       Object.keys(key).forEach((keyName: string) => {
         const object: DynamicObject = key
 
-        Global.set(keyName, object[keyName])
+        this.set(keyName, object[keyName])
       })
 
       return
@@ -54,4 +54,4 @@ class Global {
   }
 }
 
-export default Global
+export default Globals

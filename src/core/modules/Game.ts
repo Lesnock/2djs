@@ -1,34 +1,60 @@
 import State from './State'
-import Input from './input/Input'
+import Config from './Config'
 import Display from './Display'
+import Globals from './Globals'
 import Graphics from './Graphics'
+import Input from './input/Input'
+import Loader from './loader/Loader'
+import { ConfigName } from '../types'
 import gameConfig from '../../config/game'
-import KeyboardController from './input/controllers/KeyboardController'
-
-interface GameProps {
-  title: string,
-  width: number,
-  height: number
-}
 
 class Game {
+  config: Config
+  input: Input
+  globals: Globals
   display: Display
+  loader: Loader
   currentState!: State
 
-  constructor ({ title, width, height }: GameProps) {
-    document.title = title
+  constructor (configs: { [key in ConfigName]: any }) {
+    this.config = new Config()
 
-    this.display = new Display(width, height)
+    if (!configs.title) {
+      this.config.set('title', '2DJS')
+    }
 
-    // Start Input Listener
-    Input.addController(new KeyboardController())
-    Input.listener()
+    if (!configs.width) {
+      this.config.set('width', 800)
+    }
+
+    if (!configs.height) {
+      this.config.set('height', 600)
+    }
+
+    for (const name in configs) {
+      this.config.set(<ConfigName> name, configs[<ConfigName> name])
+    }
+
+    document.title = this.config.get('title')
+
+    // Start display
+    this.display = new Display(this.config.get('width'), this.config.get('height'))
+
+    // Start Input
+    this.input = new Input()
+    this.input.listener()
+
+    // Start Globals
+    this.globals = new Globals()
+
+    // Start Loader
+    this.loader = new Loader()
   }
 
   async start () {
     await this.loadInitialState()
 
-    this.currentState?.start()
+    await this.currentState?.start()
 
     this.runLoop()
   }
@@ -38,13 +64,19 @@ class Game {
 
     const _stateClass = imported.default
 
-    const initialState = new _stateClass()
+    // Instantiate state and pass modules
+    const initialState = new _stateClass({
+      config: this.config,
+      input: this.input,
+      globals: this.globals,
+      display: this.display,
+      loader: this.loader
+    })
 
     this.currentState = initialState
   }
 
   update (dt: number) {
-    Input.update()
     this.currentState.update(dt)
   }
 
