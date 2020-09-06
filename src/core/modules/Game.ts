@@ -1,14 +1,14 @@
 import State from './State'
-import Config from './Config'
+import Configs from './Configs'
 import Display from './Display'
 import Globals from './Globals'
 import Graphics from './Graphics'
 import Input from './input/Input'
 import Loader from './loader/Loader'
-import { ConfigName, Config as ConfigType } from '../types'
+import { Configs as ConfigType } from '../types'
 
 class Game {
-  config: Config
+  config: Configs
   input: Input
   globals: Globals
   display: Display
@@ -16,11 +16,7 @@ class Game {
   currentState!: State
 
   constructor (configs: ConfigType) {
-    this.config = new Config()
-
-    for (const name in configs) {
-      this.config.set(<ConfigName> name, configs[<ConfigName> name])
-    }
+    this.config = new Configs(configs)
 
     document.title = this.config.get('title')
 
@@ -28,7 +24,7 @@ class Game {
     this.display = new Display(this.config.get('width'), this.config.get('height'))
 
     // Start Input
-    this.input = new Input()
+    this.input = new Input(this.config)
     this.input.listener()
 
     // Start Globals

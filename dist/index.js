@@ -3,13 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Loader = exports.Graphics = exports.Input = exports.Display = exports.Globals = exports.State = exports.Game = void 0;
+exports.Loader = exports.Graphics = exports.Input = exports.Display = exports.Configs = exports.Globals = exports.State = exports.Game = void 0;
 var Game_1 = require("./src/core/modules/Game");
 Object.defineProperty(exports, "Game", { enumerable: true, get: function () { return __importDefault(Game_1).default; } });
 var State_1 = require("./src/core/modules/State");
 Object.defineProperty(exports, "State", { enumerable: true, get: function () { return __importDefault(State_1).default; } });
 var Globals_1 = require("./src/core/modules/Globals");
 Object.defineProperty(exports, "Globals", { enumerable: true, get: function () { return __importDefault(Globals_1).default; } });
+var Configs_1 = require("./src/core/modules/Configs");
+Object.defineProperty(exports, "Configs", { enumerable: true, get: function () { return __importDefault(Configs_1).default; } });
 var Display_1 = require("./src/core/modules/Display");
 Object.defineProperty(exports, "Display", { enumerable: true, get: function () { return __importDefault(Display_1).default; } });
 var Input_1 = require("./src/core/modules/input/Input");

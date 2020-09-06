@@ -1,12 +1,16 @@
 import { ButtonName } from '../../types'
-import inputConfig from '../../../config/input'
+import Configs from '../Configs'
 import Controller from './controllers/Controller'
 import KeyboardController from './controllers/KeyboardController'
 
 const controllers: { [name: string]: Controller } = {}
 
 class Input {
-  constructor () {
+  private config: Configs
+
+  constructor (config: Configs) {
+    this.config = config
+
     // Keyboard Controller is the default
     this.addController(new KeyboardController())
   }
@@ -36,15 +40,15 @@ class Input {
    * Shortcut for method 'get' of main controller
    */
   get (name: ButtonName) {
-    if (!inputConfig.mainController) {
+    if (!this.config.mainController) {
       throw new Error('mainController config does not exists on input config file')
     }
 
-    if (!controllers[inputConfig.mainController]) {
-      throw new Error(`Controller ${inputConfig.mainController} does not exists.`)
+    if (!controllers[this.config.mainController]) {
+      throw new Error(`Controller ${this.config.mainController} does not exists.`)
     }
 
-    return controllers[inputConfig.mainController].get(name)
+    return controllers[this.config.mainController].get(name)
   }
 
   /**

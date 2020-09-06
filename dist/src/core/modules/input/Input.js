@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var input_1 = __importDefault(require("../../../config/input"));
 var KeyboardController_1 = __importDefault(require("./controllers/KeyboardController"));
 var controllers = {};
 var Input = /** @class */ (function () {
-    function Input() {
+    function Input(config) {
+        this.config = config;
         // Keyboard Controller is the default
         this.addController(new KeyboardController_1.default());
     }
@@ -37,13 +37,13 @@ var Input = /** @class */ (function () {
      * Shortcut for method 'get' of main controller
      */
     Input.prototype.get = function (name) {
-        if (!input_1.default.mainController) {
+        if (!this.config.mainController) {
             throw new Error('mainController config does not exists on input config file');
         }
-        if (!controllers[input_1.default.mainController]) {
-            throw new Error("Controller " + input_1.default.mainController + " does not exists.");
+        if (!controllers[this.config.mainController]) {
+            throw new Error("Controller " + this.config.mainController + " does not exists.");
         }
-        return controllers[input_1.default.mainController].get(name);
+        return controllers[this.config.mainController].get(name);
     };
     /**
      * Add listeners to keyboard keys

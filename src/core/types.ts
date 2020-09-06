@@ -2,8 +2,9 @@ export type ConfigName = 'title'
   | 'width'
   | 'height'
   | 'fps'
+  | 'mainController'
 
-export type Config = {
+export type Configs = {
   [key in ConfigName]: any
 }
 

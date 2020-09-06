@@ -40,22 +40,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var State_1 = __importDefault(require("./State"));
-var Config_1 = __importDefault(require("./Config"));
+var Configs_1 = __importDefault(require("./Configs"));
 var Display_1 = __importDefault(require("./Display"));
 var Globals_1 = __importDefault(require("./Globals"));
 var Input_1 = __importDefault(require("./input/Input"));
 var Loader_1 = __importDefault(require("./loader/Loader"));
 var Game = /** @class */ (function () {
     function Game(configs) {
-        this.config = new Config_1.default();
-        for (var name_1 in configs) {
-            this.config.set(name_1, configs[name_1]);
-        }
+        this.config = new Configs_1.default(configs);
         document.title = this.config.get('title');
         // Start display
         this.display = new Display_1.default(this.config.get('width'), this.config.get('height'));
         // Start Input
-        this.input = new Input_1.default();
+        this.input = new Input_1.default(this.config);
         this.input.listener();
         // Start Globals
         this.globals = new Globals_1.default();
