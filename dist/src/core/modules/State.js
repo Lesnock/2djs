@@ -37,16 +37,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var State = /** @class */ (function () {
+    function State() {
+    }
+    State.prototype.update = function (dt) { };
+    ;
+    State.prototype.render = function (g) { };
+    ;
     /**
-     * Start state - set modules
+     * Set Game Modules
      */
-    function State(_a) {
-        var input = _a.input, display = _a.display, globals = _a.globals, loader = _a.loader;
+    State.prototype.setModules = function (_a) {
+        var config = _a.config, input = _a.input, display = _a.display, globals = _a.globals, loader = _a.loader;
+        this.config = config;
         this.input = input;
         this.display = display;
         this.globals = globals;
         this.loader = loader;
-    }
+    };
     /**
      * Start
      */

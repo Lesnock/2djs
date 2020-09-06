@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -58,16 +39,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var State_1 = __importDefault(require("./State"));
+var Config_1 = __importDefault(require("./Config"));
 var Display_1 = __importDefault(require("./Display"));
 var Globals_1 = __importDefault(require("./Globals"));
 var Input_1 = __importDefault(require("./input/Input"));
-var game_1 = __importDefault(require("../../config/game"));
 var Loader_1 = __importDefault(require("./loader/Loader"));
 var Game = /** @class */ (function () {
-    function Game(_a) {
-        var title = _a.title, width = _a.width, height = _a.height;
-        document.title = title;
-        this.display = new Display_1.default(width, height);
+    function Game(configs) {
+        this.config = new Config_1.default();
+        for (var name_1 in configs) {
+            this.config.set(name_1, configs[name_1]);
+        }
+        document.title = this.config.get('title');
+        // Start display
+        this.display = new Display_1.default(this.config.get('width'), this.config.get('height'));
         // Start Input
         this.input = new Input_1.default();
         this.input.listener();
@@ -76,39 +62,31 @@ var Game = /** @class */ (function () {
         // Start Loader
         this.loader = new Loader_1.default();
     }
-    Game.prototype.start = function () {
+    Game.prototype.start = function (initialState) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.loadInitialState()];
-                    case 1:
-                        _b.sent();
-                        return [4 /*yield*/, ((_a = this.currentState) === null || _a === void 0 ? void 0 : _a.start())];
-                    case 2:
-                        _b.sent();
-                        this.runLoop();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Game.prototype.loadInitialState = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var imported, _stateClass, initialState;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("../../states/" + game_1.default.initialState)); })];
-                    case 1:
-                        imported = _a.sent();
-                        _stateClass = imported.default;
-                        initialState = new _stateClass({
+                    case 0:
+                        if (!initialState) {
+                            throw new Error('A initial state is required to start the game.');
+                        }
+                        if (!(initialState instanceof State_1.default)) {
+                            throw new Error('initialState should be an instance of State');
+                        }
+                        // Pass modules to state
+                        initialState.setModules({
+                            config: this.config,
                             input: this.input,
                             globals: this.globals,
                             display: this.display,
                             loader: this.loader
                         });
                         this.currentState = initialState;
+                        return [4 /*yield*/, ((_a = this.currentState) === null || _a === void 0 ? void 0 : _a.start())];
+                    case 1:
+                        _b.sent();
+                        this.runLoop();
                         return [2 /*return*/];
                 }
             });
@@ -123,7 +101,7 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.runLoop = function () {
         var _this = this;
-        var fps = game_1.default.fps;
+        var fps = this.config.get('fps');
         var deltaTime = 1 / fps;
         var lastTime = 0;
         var timer = 0;

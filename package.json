@@ -2,10 +2,10 @@
   "name": "2djs",
   "description": "A 2D JS Engine for Game Creation",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --watch"
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
