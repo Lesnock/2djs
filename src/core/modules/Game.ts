@@ -5,8 +5,7 @@ import Globals from './Globals'
 import Graphics from './Graphics'
 import Input from './input/Input'
 import Loader from './loader/Loader'
-import { ConfigName } from '../types'
-import gameConfig from '../../config/game'
+import { ConfigName, Config as ConfigType } from '../types'
 
 class Game {
   config: Config
@@ -16,20 +15,8 @@ class Game {
   loader: Loader
   currentState!: State
 
-  constructor (configs: { [key in ConfigName]: any }) {
+  constructor (configs: ConfigType) {
     this.config = new Config()
-
-    if (!configs.title) {
-      this.config.set('title', '2DJS')
-    }
-
-    if (!configs.width) {
-      this.config.set('width', 800)
-    }
-
-    if (!configs.height) {
-      this.config.set('height', 600)
-    }
 
     for (const name in configs) {
       this.config.set(<ConfigName> name, configs[<ConfigName> name])
@@ -51,21 +38,17 @@ class Game {
     this.loader = new Loader()
   }
 
-  async start () {
-    await this.loadInitialState()
+  async start (initialState: State) {
+    if (!initialState) {
+      throw new Error('A initial state is required to start the game.')
+    }
 
-    await this.currentState?.start()
+    if (!(initialState instanceof State)) {
+      throw new Error('initialState should be an instance of State')
+    }
 
-    this.runLoop()
-  }
-
-  async loadInitialState () {
-    const imported = await import(`../../states/${gameConfig.initialState}`)
-
-    const _stateClass = imported.default
-
-    // Instantiate state and pass modules
-    const initialState = new _stateClass({
+    // Pass modules to state
+    initialState.setModules({
       config: this.config,
       input: this.input,
       globals: this.globals,
@@ -74,6 +57,10 @@ class Game {
     })
 
     this.currentState = initialState
+
+    await this.currentState?.start()
+
+    this.runLoop()
   }
 
   update (dt: number) {
@@ -87,7 +74,7 @@ class Game {
   }
 
   runLoop () {
-    const fps = gameConfig.fps
+    const fps = this.config.get('fps')
     const deltaTime = 1 / fps
     let lastTime = 0
     let timer = 0

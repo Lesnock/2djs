@@ -1,4 +1,11 @@
-export type ConfigName = 'title' | 'width' | 'height'
+export type ConfigName = 'title'
+  | 'width'
+  | 'height'
+  | 'fps'
+
+export type Config = {
+  [key in ConfigName]: any
+}
 
 export type ButtonName = 'Escape'
   | 'F1'
