@@ -3,10 +3,10 @@ import Display from './Display'
 import Input from './input/Input'
 import Graphics from './Graphics'
 import Loader from './loader/Loader'
-import { Config } from '../types'
+import { Configs } from '../interfaces'
 
 abstract class State {
-  config!: Config
+  config!: Configs
   input!: Input
   display!: Display
   globals!: Globals

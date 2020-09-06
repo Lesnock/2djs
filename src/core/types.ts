@@ -5,7 +5,7 @@ export type ConfigName = 'title'
   | 'mainController'
 
 export type Configs = {
-  [key in ConfigName]: any
+  [key in ConfigName]?: any
 }
 
 export type ButtonName = 'Escape'

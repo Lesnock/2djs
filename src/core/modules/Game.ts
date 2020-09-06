@@ -1,11 +1,12 @@
 import State from './State'
-import Configs from './Configs'
+import configs from './Configs'
 import Display from './Display'
 import Globals from './Globals'
 import Graphics from './Graphics'
 import Input from './input/Input'
 import Loader from './loader/Loader'
-import { Configs as ConfigType } from '../types'
+import { ConfigName } from '../types'
+import { Configs } from '../interfaces'
 
 class Game {
   config: Configs
@@ -15,13 +16,13 @@ class Game {
   loader: Loader
   currentState!: State
 
-  constructor (configs: ConfigType) {
-    this.config = new Configs(configs)
+  constructor (_configs: { [key in ConfigName]: any}) {
+    this.config = { ...configs, ..._configs }
 
-    document.title = this.config.get('title')
+    document.title = this.config.title
 
     // Start display
-    this.display = new Display(this.config.get('width'), this.config.get('height'))
+    this.display = new Display(this.config.width, this.config.height)
 
     // Start Input
     this.input = new Input(this.config)
@@ -70,7 +71,7 @@ class Game {
   }
 
   runLoop () {
-    const fps = this.config.get('fps')
+    const fps = this.config.fps
     const deltaTime = 1 / fps
     let lastTime = 0
     let timer = 0
