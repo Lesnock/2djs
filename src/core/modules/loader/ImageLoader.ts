@@ -1,7 +1,7 @@
 import LoaderInterface from './LoaderInterface'
 
 class ImageLoader implements LoaderInterface {
-  load (path: string) {
+  load (path: string): Promise<HTMLImageElement> {
     const image = new Image()
 
     return new Promise(resolve => {

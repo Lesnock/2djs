@@ -4,7 +4,7 @@ class Loader {
   /**
    * Load image
    */
-  async loadImage (path: string) {
+  async loadImage (path: string): Promise<HTMLImageElement> {
     const loader = new ImageLoader()
     return loader.load(path)
   }
