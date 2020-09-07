@@ -1,4 +1,5 @@
 import State from './State'
+import Assets from './Assets'
 import configs from './Configs'
 import Display from './Display'
 import Globals from './Globals'
@@ -6,7 +7,7 @@ import Graphics from './Graphics'
 import Input from './input/Input'
 import Loader from './loader/Loader'
 import { ConfigName } from '../types'
-import { Configs } from '../interfaces'
+import { Configs, Assets as IAssets } from '../interfaces'
 
 class Game {
   config: Configs
@@ -14,6 +15,7 @@ class Game {
   globals: Globals
   display: Display
   loader: Loader
+  assets: IAssets
   currentState!: State
 
   constructor (_configs: { [key in ConfigName]: any}) {
@@ -33,6 +35,9 @@ class Game {
 
     // Start Loader
     this.loader = new Loader()
+
+    // Assets
+    this.assets = Assets
   }
 
   async start (initialState: State) {
@@ -50,7 +55,8 @@ class Game {
       input: this.input,
       globals: this.globals,
       display: this.display,
-      loader: this.loader
+      loader: this.loader,
+      assets: this.assets
     })
 
     this.currentState = initialState

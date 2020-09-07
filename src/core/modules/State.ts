@@ -3,7 +3,7 @@ import Display from './Display'
 import Input from './input/Input'
 import Graphics from './Graphics'
 import Loader from './loader/Loader'
-import { Configs } from '../interfaces'
+import { Configs, Assets } from '../interfaces'
 
 abstract class State {
   config!: Configs
@@ -11,6 +11,7 @@ abstract class State {
   display!: Display
   globals!: Globals
   loader!: Loader
+  assets!: Assets
 
   canUpdate: boolean = true
   canRender: boolean = true
@@ -21,12 +22,13 @@ abstract class State {
   /**
    * Set Game Modules
    */
-  setModules ({ config, input, display, globals, loader }: any) {
+  setModules ({ config, input, display, globals, loader, assets }: any) {
     this.config = config
     this.input = input
     this.display = display
     this.globals = globals
     this.loader = loader
+    this.assets = assets
   }
 
   /**
@@ -40,7 +42,8 @@ abstract class State {
       input: this.input,
       display: this.display,
       globals: this.globals,
-      loader: this.loader
+      loader: this.loader,
+      assets: this.assets
     })
 
     await state.start(props)

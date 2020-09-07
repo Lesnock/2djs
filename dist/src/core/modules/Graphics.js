@@ -31,7 +31,6 @@ var Graphics = /** @class */ (function () {
         this.context.drawImage(tile.buffer, x, y, dWidth, dHeight);
     };
     Graphics.prototype.drawAnimation = function (animation, x, y, width, height) {
-        console.log(animation.index);
         var currentFrame = animation.currentFrame;
         var bufferOrImage = null;
         if (currentFrame.frame instanceof Sprite_1.default || currentFrame.frame instanceof Tile_1.default) {

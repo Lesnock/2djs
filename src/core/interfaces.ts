@@ -5,6 +5,10 @@ export interface DynamicObject {
   [key: string]: any;
 }
 
+export interface Loader {
+  load(path?: any): any;
+}
+
 export interface Configs {
   title: string;
   width: number;
@@ -16,4 +20,11 @@ export interface Configs {
 export interface AnimationFrame {
   frame: Sprite | Tile | HTMLImageElement;
   speed: number;
+}
+
+export interface Assets {
+  images: Map<string, HTMLImageElement>;
+  sheets: Map<string, any>;
+  audios: Map<string, any>;
+  json: Map<string, any>;
 }

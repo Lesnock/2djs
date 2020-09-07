@@ -51,6 +51,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var State_1 = __importDefault(require("./State"));
+var Assets_1 = __importDefault(require("./Assets"));
 var Configs_1 = __importDefault(require("./Configs"));
 var Display_1 = __importDefault(require("./Display"));
 var Globals_1 = __importDefault(require("./Globals"));
@@ -69,6 +70,8 @@ var Game = /** @class */ (function () {
         this.globals = new Globals_1.default();
         // Start Loader
         this.loader = new Loader_1.default();
+        // Assets
+        this.assets = Assets_1.default;
     }
     Game.prototype.start = function (initialState) {
         return __awaiter(this, void 0, void 0, function () {
@@ -87,7 +90,8 @@ var Game = /** @class */ (function () {
                             input: this.input,
                             globals: this.globals,
                             display: this.display,
-                            loader: this.loader
+                            loader: this.loader,
+                            assets: this.assets
                         });
                         this.currentState = initialState;
                         this.globals.set('currentState', initialState);

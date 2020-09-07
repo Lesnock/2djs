@@ -49,12 +49,13 @@ var State = /** @class */ (function () {
      * Set Game Modules
      */
     State.prototype.setModules = function (_a) {
-        var config = _a.config, input = _a.input, display = _a.display, globals = _a.globals, loader = _a.loader;
+        var config = _a.config, input = _a.input, display = _a.display, globals = _a.globals, loader = _a.loader, assets = _a.assets;
         this.config = config;
         this.input = input;
         this.display = display;
         this.globals = globals;
         this.loader = loader;
+        this.assets = assets;
     };
     /**
      * Start
@@ -74,7 +75,8 @@ var State = /** @class */ (function () {
                             input: this.input,
                             display: this.display,
                             globals: this.globals,
-                            loader: this.loader
+                            loader: this.loader,
+                            assets: this.assets
                         });
                         return [4 /*yield*/, state.start(props)];
                     case 1:
