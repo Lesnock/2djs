@@ -15,6 +15,11 @@ var Graphics = /** @class */ (function () {
         this.context.fillRect(x, y, width, height);
         this.context.restore();
     };
+    Graphics.prototype.drawSprite = function (sprite, x, y, width, height) {
+        var dWidth = !width ? sprite.image.width : width;
+        var dHeight = !height ? sprite.image.height : height;
+        this.context.drawImage(sprite.buffer, x, y, dWidth, dHeight);
+    };
     return Graphics;
 }());
 exports.default = Graphics;

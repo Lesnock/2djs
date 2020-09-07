@@ -1,3 +1,5 @@
+import Sprite from './Sprite'
+
 class Graphics {
   context: CanvasRenderingContext2D
 
@@ -19,6 +21,17 @@ class Graphics {
     this.context.fillRect(x, y, width, height)
 
     this.context.restore()
+  }
+
+  drawSprite (sprite: Sprite, x: number, y: number, width?: number, height?: number) {
+    const dWidth = !width ? sprite.image.width : width
+    const dHeight = !height ? sprite.image.height : height
+
+    this.context.drawImage(
+      sprite.buffer,
+      x, y,
+      dWidth, dHeight
+    )
   }
 }
 
