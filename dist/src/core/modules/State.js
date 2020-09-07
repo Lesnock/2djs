@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var State = /** @class */ (function () {
     function State() {
+        this.canUpdate = true;
+        this.canRender = true;
     }
     State.prototype.update = function (dt) { };
     ;
@@ -57,10 +59,21 @@ var State = /** @class */ (function () {
     /**
      * Start
      */
-    State.prototype.start = function () {
+    State.prototype.start = function (props) {
         return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
             return [2 /*return*/];
         }); });
+    };
+    State.prototype.changeToState = function (state, props) {
+        state.setModules({
+            config: this.config,
+            input: this.input,
+            display: this.display,
+            globals: this.globals,
+            loader: this.loader
+        });
+        state.start(props);
+        this.globals.set('currentState', state);
     };
     return State;
 }());

@@ -12,6 +12,9 @@ abstract class State {
   globals!: Globals
   loader!: Loader
 
+  canUpdate: boolean = true
+  canRender: boolean = true
+
   update (dt: number): void {};
   render (g: Graphics): void {};
 
@@ -29,7 +32,21 @@ abstract class State {
   /**
    * Start
    */
-  async start () {}
+  async start (props?: {}) {}
+
+  changeToState <T extends State>(state: T, props?: {}) {
+    state.setModules({
+      config: this.config,
+      input: this.input,
+      display: this.display,
+      globals: this.globals,
+      loader: this.loader
+    })
+
+    state.start(props)
+
+    this.globals.set('currentState', state)
+  }
 }
 
 export default State

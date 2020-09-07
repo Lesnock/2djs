@@ -54,20 +54,36 @@ class Game {
     })
 
     this.currentState = initialState
+    this.globals.set('currentState', initialState)
 
-    await this.currentState?.start()
+    this.globals.get('currentState').start()
 
     this.runLoop()
   }
 
+  /**
+   * Set the current state of the game
+   */
+  setCurrentState <T extends State>(state: T) {
+    this.globals.set('currentState', state)
+  }
+
   update (dt: number) {
-    this.currentState.update(dt)
+    const currentState = this.globals.get('currentState')
+
+    if (currentState.canUpdate) {
+      currentState.update(dt)
+    }
   }
 
   render (g: Graphics) {
     g.clear(this.display.width, this.display.height)
 
-    this.currentState.render(g)
+    const currentState = this.globals.get('currentState')
+
+    if (currentState.canRender) {
+      currentState.render(g)
+    }
   }
 
   runLoop () {

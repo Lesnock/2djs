@@ -71,41 +71,48 @@ var Game = /** @class */ (function () {
         this.loader = new Loader_1.default();
     }
     Game.prototype.start = function (initialState) {
-        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!initialState) {
-                            throw new Error('A initial state is required to start the game.');
-                        }
-                        if (!(initialState instanceof State_1.default)) {
-                            throw new Error('initialState should be an instance of State');
-                        }
-                        // Pass modules to state
-                        initialState.setModules({
-                            config: this.config,
-                            input: this.input,
-                            globals: this.globals,
-                            display: this.display,
-                            loader: this.loader
-                        });
-                        this.currentState = initialState;
-                        return [4 /*yield*/, ((_a = this.currentState) === null || _a === void 0 ? void 0 : _a.start())];
-                    case 1:
-                        _b.sent();
-                        this.runLoop();
-                        return [2 /*return*/];
+            return __generator(this, function (_a) {
+                if (!initialState) {
+                    throw new Error('A initial state is required to start the game.');
                 }
+                if (!(initialState instanceof State_1.default)) {
+                    throw new Error('initialState should be an instance of State');
+                }
+                // Pass modules to state
+                initialState.setModules({
+                    config: this.config,
+                    input: this.input,
+                    globals: this.globals,
+                    display: this.display,
+                    loader: this.loader
+                });
+                this.currentState = initialState;
+                this.globals.set('currentState', initialState);
+                this.globals.get('currentState').start();
+                this.runLoop();
+                return [2 /*return*/];
             });
         });
     };
+    /**
+     * Set the current state of the game
+     */
+    Game.prototype.setCurrentState = function (state) {
+        this.globals.set('currentState', state);
+    };
     Game.prototype.update = function (dt) {
-        this.currentState.update(dt);
+        var currentState = this.globals.get('currentState');
+        if (currentState.canUpdate) {
+            currentState.update(dt);
+        }
     };
     Game.prototype.render = function (g) {
         g.clear(this.display.width, this.display.height);
-        this.currentState.render(g);
+        var currentState = this.globals.get('currentState');
+        if (currentState.canRender) {
+            currentState.render(g);
+        }
     };
     Game.prototype.runLoop = function () {
         var _this = this;
