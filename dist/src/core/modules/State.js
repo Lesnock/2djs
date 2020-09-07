@@ -65,15 +65,25 @@ var State = /** @class */ (function () {
         }); });
     };
     State.prototype.changeToState = function (state, props) {
-        state.setModules({
-            config: this.config,
-            input: this.input,
-            display: this.display,
-            globals: this.globals,
-            loader: this.loader
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        state.setModules({
+                            config: this.config,
+                            input: this.input,
+                            display: this.display,
+                            globals: this.globals,
+                            loader: this.loader
+                        });
+                        return [4 /*yield*/, state.start(props)];
+                    case 1:
+                        _a.sent();
+                        this.globals.set('currentState', state);
+                        return [2 /*return*/];
+                }
+            });
         });
-        state.start(props);
-        this.globals.set('currentState', state);
     };
     return State;
 }());

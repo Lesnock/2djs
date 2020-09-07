@@ -7,6 +7,7 @@ export { default as Configs } from './src/core/modules/Configs'
 export { default as Display } from './src/core/modules/Display'
 export { default as Input } from './src/core/modules/input/Input'
 export { default as Graphics } from './src/core/modules/Graphics'
+export { default as Animation } from './src/core/modules/Animation'
 export { default as Loader } from './src/core/modules/loader/Loader'
 
 export {

@@ -1,5 +1,7 @@
-import Sprite from './Sprite'
 import Tile from './Tile'
+import Sprite from './Sprite'
+import Animation from './Animation'
+import { AnimationFrame } from '../interfaces'
 
 class Graphics {
   context: CanvasRenderingContext2D
@@ -44,6 +46,28 @@ class Graphics {
       x, y,
       dWidth, dHeight
     )
+  }
+
+  drawAnimation (animation: Animation, x: number, y: number, width?: number, height?: number) {
+    const currentFrame: AnimationFrame = animation.currentFrame
+    let bufferOrImage = null
+
+    if (currentFrame.frame instanceof Sprite || currentFrame.frame instanceof Tile) {
+      bufferOrImage = currentFrame.frame.buffer
+    } else {
+      bufferOrImage = currentFrame.frame
+    }
+
+    const dWidth = !width ? currentFrame.frame.width : width
+    const dHeight = !height ? currentFrame.frame.height : height
+
+    this.context.drawImage(
+      bufferOrImage,
+      x, y,
+      dWidth, dHeight
+    )
+
+    animation.update()
   }
 }
 

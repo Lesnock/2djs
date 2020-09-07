@@ -34,7 +34,7 @@ abstract class State {
    */
   async start (props?: {}) {}
 
-  changeToState <T extends State>(state: T, props?: {}) {
+  async changeToState <T extends State>(state: T, props?: {}) {
     state.setModules({
       config: this.config,
       input: this.input,
@@ -43,7 +43,7 @@ abstract class State {
       loader: this.loader
     })
 
-    state.start(props)
+    await state.start(props)
 
     this.globals.set('currentState', state)
   }

@@ -56,7 +56,7 @@ class Game {
     this.currentState = initialState
     this.globals.set('currentState', initialState)
 
-    this.globals.get('currentState').start()
+    await this.globals.get('currentState').start()
 
     this.runLoop()
   }

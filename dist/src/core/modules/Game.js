@@ -73,25 +73,30 @@ var Game = /** @class */ (function () {
     Game.prototype.start = function (initialState) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                if (!initialState) {
-                    throw new Error('A initial state is required to start the game.');
+                switch (_a.label) {
+                    case 0:
+                        if (!initialState) {
+                            throw new Error('A initial state is required to start the game.');
+                        }
+                        if (!(initialState instanceof State_1.default)) {
+                            throw new Error('initialState should be an instance of State');
+                        }
+                        // Pass modules to state
+                        initialState.setModules({
+                            config: this.config,
+                            input: this.input,
+                            globals: this.globals,
+                            display: this.display,
+                            loader: this.loader
+                        });
+                        this.currentState = initialState;
+                        this.globals.set('currentState', initialState);
+                        return [4 /*yield*/, this.globals.get('currentState').start()];
+                    case 1:
+                        _a.sent();
+                        this.runLoop();
+                        return [2 /*return*/];
                 }
-                if (!(initialState instanceof State_1.default)) {
-                    throw new Error('initialState should be an instance of State');
-                }
-                // Pass modules to state
-                initialState.setModules({
-                    config: this.config,
-                    input: this.input,
-                    globals: this.globals,
-                    display: this.display,
-                    loader: this.loader
-                });
-                this.currentState = initialState;
-                this.globals.set('currentState', initialState);
-                this.globals.get('currentState').start();
-                this.runLoop();
-                return [2 /*return*/];
             });
         });
     };
