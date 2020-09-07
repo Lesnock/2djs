@@ -1,4 +1,5 @@
 export { default as Game } from './src/core/modules/Game'
+export { default as Tile } from './src/core/modules/Tile'
 export { default as State } from './src/core/modules/State'
 export { default as Sprite } from './src/core/modules/Sprite'
 export { default as Globals } from './src/core/modules/Globals'

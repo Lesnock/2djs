@@ -1,4 +1,5 @@
 import Sprite from './Sprite'
+import Tile from './Tile'
 
 class Graphics {
   context: CanvasRenderingContext2D
@@ -29,6 +30,17 @@ class Graphics {
 
     this.context.drawImage(
       sprite.buffer,
+      x, y,
+      dWidth, dHeight
+    )
+  }
+
+  drawTile (tile: Tile, x: number, y: number, width?: number, height?: number) {
+    const dWidth = !width ? tile.image.width : width
+    const dHeight = !height ? tile.image.height : height
+
+    this.context.drawImage(
+      tile.buffer,
       x, y,
       dWidth, dHeight
     )
