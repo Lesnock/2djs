@@ -9,7 +9,7 @@ class Animation {
   timer: number
   canPlay: boolean
 
-  constructor (frames: AnimationFrame[], loop = false) {
+  constructor (frames: AnimationFrame[], loop = true) {
     this.frames = frames
     this.loop = loop
     this.size = this.frames.length

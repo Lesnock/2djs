@@ -27,8 +27,8 @@ class Graphics {
   }
 
   drawSprite (sprite: Sprite, x: number, y: number, width?: number, height?: number) {
-    const dWidth = !width ? sprite.image.width : width
-    const dHeight = !height ? sprite.image.height : height
+    const dWidth = !width ? sprite.width : width
+    const dHeight = !height ? sprite.height : height
 
     this.context.drawImage(
       sprite.buffer,
@@ -38,8 +38,8 @@ class Graphics {
   }
 
   drawTile (tile: Tile, x: number, y: number, width?: number, height?: number) {
-    const dWidth = !width ? tile.image.width : width
-    const dHeight = !height ? tile.image.height : height
+    const dWidth = !width ? tile.width : width
+    const dHeight = !height ? tile.height : height
 
     this.context.drawImage(
       tile.buffer,

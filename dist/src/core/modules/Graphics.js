@@ -21,13 +21,13 @@ var Graphics = /** @class */ (function () {
         this.context.restore();
     };
     Graphics.prototype.drawSprite = function (sprite, x, y, width, height) {
-        var dWidth = !width ? sprite.image.width : width;
-        var dHeight = !height ? sprite.image.height : height;
+        var dWidth = !width ? sprite.width : width;
+        var dHeight = !height ? sprite.height : height;
         this.context.drawImage(sprite.buffer, x, y, dWidth, dHeight);
     };
     Graphics.prototype.drawTile = function (tile, x, y, width, height) {
-        var dWidth = !width ? tile.image.width : width;
-        var dHeight = !height ? tile.image.height : height;
+        var dWidth = !width ? tile.width : width;
+        var dHeight = !height ? tile.height : height;
         this.context.drawImage(tile.buffer, x, y, dWidth, dHeight);
     };
     Graphics.prototype.drawAnimation = function (animation, x, y, width, height) {
