@@ -121,6 +121,7 @@ var Game = /** @class */ (function () {
         var currentState = this.globals.get('currentState');
         if (currentState.canRender) {
             currentState.render(g);
+            currentState.layers.render(g);
         }
     };
     Game.prototype.runLoop = function () {

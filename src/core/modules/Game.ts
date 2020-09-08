@@ -85,10 +85,11 @@ class Game {
   render (g: Graphics) {
     g.clear(this.display.width, this.display.height)
 
-    const currentState = this.globals.get('currentState')
+    const currentState = <State> this.globals.get('currentState')
 
     if (currentState.canRender) {
       currentState.render(g)
+      currentState.layers.render(g)
     }
   }
 

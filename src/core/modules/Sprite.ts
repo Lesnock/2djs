@@ -13,8 +13,6 @@ class Sprite {
     this.x = xCrop
     this.y = yCrop
 
-    console.log(widthCrop)
-
     this.width = !widthCrop ? this.image.width : widthCrop
     this.height = !heightCrop ? this.image.height : heightCrop
 

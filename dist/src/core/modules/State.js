@@ -35,11 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var LayerManager_1 = __importDefault(require("./layers/LayerManager"));
 var State = /** @class */ (function () {
     function State() {
         this.canUpdate = true;
         this.canRender = true;
+        this.layers = new LayerManager_1.default();
     }
     State.prototype.update = function (dt) { };
     ;
@@ -86,6 +91,13 @@ var State = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * Get Layer Graphics
+     * @param index
+     */
+    State.prototype.onLayer = function (index) {
+        return this.layers.get(index).g;
     };
     return State;
 }());

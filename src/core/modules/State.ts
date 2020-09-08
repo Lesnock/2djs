@@ -4,6 +4,7 @@ import Input from './input/Input'
 import Graphics from './Graphics'
 import Loader from './loader/Loader'
 import { Configs, Assets } from '../interfaces'
+import LayerManager from './layers/LayerManager'
 
 abstract class State {
   config!: Configs
@@ -12,9 +13,14 @@ abstract class State {
   globals!: Globals
   loader!: Loader
   assets!: Assets
+  layers: LayerManager
 
   canUpdate: boolean = true
   canRender: boolean = true
+
+  constructor () {
+    this.layers = new LayerManager()
+  }
 
   update (dt: number): void {};
   render (g: Graphics): void {};
@@ -49,6 +55,14 @@ abstract class State {
     await state.start(props)
 
     this.globals.set('currentState', state)
+  }
+
+  /**
+   * Get Layer Graphics
+   * @param index
+   */
+  onLayer (index: number) {
+    return this.layers.get(index).g
   }
 }
 
