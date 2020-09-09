@@ -14,41 +14,53 @@ class Graphics {
     this.context.clearRect(0, 0, displayWidth, displayHeight)
   }
 
-  drawRect <T extends number> (x: T, y: T, width: T, height: T, color?: string) {
+  drawRect <T extends number> (x: T, y: T, width: T, height: T, color?: string, opacity = 1) {
     this.context.save()
 
     if (color) {
       this.context.fillStyle = color
     }
 
+    this.context.globalAlpha = opacity
+
     this.context.fillRect(x, y, width, height)
 
     this.context.restore()
   }
 
-  drawSprite (sprite: Sprite, x: number, y: number, width?: number, height?: number) {
+  drawSprite (sprite: Sprite, x: number, y: number, width?: number, height?: number, opacity = 1) {
     const dWidth = !width ? sprite.width : width
     const dHeight = !height ? sprite.height : height
+
+    this.context.save()
+    this.context.globalAlpha = opacity
 
     this.context.drawImage(
       sprite.buffer,
       x, y,
       dWidth, dHeight
     )
+
+    this.context.restore()
   }
 
-  drawTile (tile: Tile, x: number, y: number, width?: number, height?: number) {
+  drawTile (tile: Tile, x: number, y: number, width?: number, height?: number, opacity = 1) {
     const dWidth = !width ? tile.width : width
     const dHeight = !height ? tile.height : height
+
+    this.context.save()
+    this.context.globalAlpha = opacity
 
     this.context.drawImage(
       tile.buffer,
       x, y,
       dWidth, dHeight
     )
+
+    this.context.restore()
   }
 
-  drawAnimation (animation: Animation, x: number, y: number, width?: number, height?: number) {
+  drawAnimation (animation: Animation, x: number, y: number, width?: number, height?: number, opacity = 1) {
     const currentFrame: AnimationFrame = animation.currentFrame
     let bufferOrImage = null
 
@@ -61,11 +73,16 @@ class Graphics {
     const dWidth = !width ? currentFrame.frame.width : width
     const dHeight = !height ? currentFrame.frame.height : height
 
+    this.context.save()
+    this.context.globalAlpha = opacity
+
     this.context.drawImage(
       bufferOrImage,
       x, y,
       dWidth, dHeight
     )
+
+    this.context.restore()
 
     animation.update()
   }

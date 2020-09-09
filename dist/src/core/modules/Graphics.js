@@ -12,25 +12,36 @@ var Graphics = /** @class */ (function () {
     Graphics.prototype.clear = function (displayWidth, displayHeight) {
         this.context.clearRect(0, 0, displayWidth, displayHeight);
     };
-    Graphics.prototype.drawRect = function (x, y, width, height, color) {
+    Graphics.prototype.drawRect = function (x, y, width, height, color, opacity) {
+        if (opacity === void 0) { opacity = 1; }
         this.context.save();
         if (color) {
             this.context.fillStyle = color;
         }
+        this.context.globalAlpha = opacity;
         this.context.fillRect(x, y, width, height);
         this.context.restore();
     };
-    Graphics.prototype.drawSprite = function (sprite, x, y, width, height) {
+    Graphics.prototype.drawSprite = function (sprite, x, y, width, height, opacity) {
+        if (opacity === void 0) { opacity = 1; }
         var dWidth = !width ? sprite.width : width;
         var dHeight = !height ? sprite.height : height;
+        this.context.save();
+        this.context.globalAlpha = opacity;
         this.context.drawImage(sprite.buffer, x, y, dWidth, dHeight);
+        this.context.restore();
     };
-    Graphics.prototype.drawTile = function (tile, x, y, width, height) {
+    Graphics.prototype.drawTile = function (tile, x, y, width, height, opacity) {
+        if (opacity === void 0) { opacity = 1; }
         var dWidth = !width ? tile.width : width;
         var dHeight = !height ? tile.height : height;
+        this.context.save();
+        this.context.globalAlpha = opacity;
         this.context.drawImage(tile.buffer, x, y, dWidth, dHeight);
+        this.context.restore();
     };
-    Graphics.prototype.drawAnimation = function (animation, x, y, width, height) {
+    Graphics.prototype.drawAnimation = function (animation, x, y, width, height, opacity) {
+        if (opacity === void 0) { opacity = 1; }
         var currentFrame = animation.currentFrame;
         var bufferOrImage = null;
         if (currentFrame.frame instanceof Sprite_1.default || currentFrame.frame instanceof Tile_1.default) {
@@ -41,7 +52,10 @@ var Graphics = /** @class */ (function () {
         }
         var dWidth = !width ? currentFrame.frame.width : width;
         var dHeight = !height ? currentFrame.frame.height : height;
+        this.context.save();
+        this.context.globalAlpha = opacity;
         this.context.drawImage(bufferOrImage, x, y, dWidth, dHeight);
+        this.context.restore();
         animation.update();
     };
     return Graphics;
