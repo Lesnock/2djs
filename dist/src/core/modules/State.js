@@ -44,6 +44,7 @@ var State = /** @class */ (function () {
     function State() {
         this.canUpdate = true;
         this.canRender = true;
+        this.isChangingState = false;
         this.layers = new LayerManager_1.default();
     }
     State.prototype.update = function (dt) { };
@@ -70,25 +71,18 @@ var State = /** @class */ (function () {
             return [2 /*return*/];
         }); });
     };
-    State.prototype.changeToState = function (state, props) {
+    State.prototype.changeState = function (state, props, _a) {
+        var _b = _a === void 0 ? {} : _a, stopUpdate = _b.stopUpdate, stopRender = _b.stopRender;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        state.setModules({
-                            config: this.config,
-                            input: this.input,
-                            display: this.display,
-                            globals: this.globals,
-                            loader: this.loader,
-                            assets: this.assets
-                        });
-                        return [4 /*yield*/, state.start(props)];
-                    case 1:
-                        _a.sent();
-                        this.globals.set('currentState', state);
-                        return [2 /*return*/];
+            return __generator(this, function (_c) {
+                if (this.isChangingState) {
+                    return [2 /*return*/];
                 }
+                this.isChangingState = true;
+                this.canUpdate = !stopUpdate;
+                this.canRender = !stopRender;
+                this.globals.get('game').setCurrentState(state);
+                return [2 /*return*/];
             });
         });
     };

@@ -5,18 +5,18 @@ import { createCanvas } from '../Display'
 export interface LayerOptions {
   width?: number;
   height?: number;
-  transparency?: number;
+  opacity?: number;
   isVisible?: boolean;
 }
 
 class Layer {
   g: Graphics
   isVisible = true
-  transparency: number
+  opacity: number
 
   private canvas: HTMLCanvasElement
 
-  constructor ({ width, height, transparency = 1, isVisible = true }: LayerOptions = {}) {
+  constructor ({ width, height, opacity = 1, isVisible = true }: LayerOptions = {}) {
     const _width = !width ? configs.width : width
 
     const _height = !height ? configs.height : height
@@ -31,12 +31,12 @@ class Layer {
 
     this.isVisible = isVisible
 
-    this.transparency = transparency
+    this.opacity = opacity
   }
 
   render (g: Graphics) {
     g.context.save()
-    g.context.globalAlpha = this.transparency
+    g.context.globalAlpha = this.opacity
     g.context.drawImage(this.canvas, 0, 0)
     g.context.restore()
   }

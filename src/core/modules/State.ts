@@ -6,6 +6,11 @@ import Loader from './loader/Loader'
 import { Configs, Assets } from '../interfaces'
 import LayerManager from './layers/LayerManager'
 
+interface ChangeStateOptions {
+  stopUpdate?: boolean;
+  stopRender?: boolean
+}
+
 abstract class State {
   config!: Configs
   input!: Input
@@ -14,9 +19,10 @@ abstract class State {
   loader!: Loader
   assets!: Assets
   layers: LayerManager
+  canUpdate = true
+  canRender = true
 
-  canUpdate: boolean = true
-  canRender: boolean = true
+  private isChangingState = false
 
   constructor () {
     this.layers = new LayerManager()
@@ -40,21 +46,18 @@ abstract class State {
   /**
    * Start
    */
-  async start (props?: {}) {}
+  async start (props?: {}): Promise<any> {}
 
-  async changeToState <T extends State>(state: T, props?: {}) {
-    state.setModules({
-      config: this.config,
-      input: this.input,
-      display: this.display,
-      globals: this.globals,
-      loader: this.loader,
-      assets: this.assets
-    })
+  async changeState <T extends State>(state: T, props?: {}, { stopUpdate, stopRender }: ChangeStateOptions = {}) {
+    if (this.isChangingState) {
+      return
+    }
 
-    await state.start(props)
+    this.isChangingState = true
 
-    this.globals.set('currentState', state)
+    this.canUpdate = !stopUpdate
+    this.canRender = !stopRender
+    this.globals.get('game').setCurrentState(state)
   }
 
   /**

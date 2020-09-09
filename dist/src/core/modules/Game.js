@@ -72,6 +72,7 @@ var Game = /** @class */ (function () {
         this.loader = new Loader_1.default();
         // Assets
         this.assets = Assets_1.default;
+        this.globals.set('game', this);
     }
     Game.prototype.start = function (initialState) {
         return __awaiter(this, void 0, void 0, function () {
@@ -81,24 +82,30 @@ var Game = /** @class */ (function () {
                         if (!initialState) {
                             throw new Error('A initial state is required to start the game.');
                         }
-                        if (!(initialState instanceof State_1.default)) {
-                            throw new Error('initialState should be an instance of State');
-                        }
-                        // Pass modules to state
-                        initialState.setModules({
-                            config: this.config,
-                            input: this.input,
-                            globals: this.globals,
-                            display: this.display,
-                            loader: this.loader,
-                            assets: this.assets
-                        });
-                        this.currentState = initialState;
-                        this.globals.set('currentState', initialState);
-                        return [4 /*yield*/, this.globals.get('currentState').start()];
+                        return [4 /*yield*/, this.initializeState(initialState)];
                     case 1:
                         _a.sent();
                         this.runLoop();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Game.prototype.initializeState = function (state) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(state instanceof State_1.default)) {
+                            throw new Error('initialState should be an instance of State');
+                        }
+                        // Pass modules to state
+                        this.setModulesToState(state);
+                        return [4 /*yield*/, state.start()];
+                    case 1:
+                        _a.sent();
+                        this.currentState = state;
+                        this.globals.set('currentState', state);
                         return [2 /*return*/];
                 }
             });
@@ -108,7 +115,35 @@ var Game = /** @class */ (function () {
      * Set the current state of the game
      */
     Game.prototype.setCurrentState = function (state) {
-        this.globals.set('currentState', state);
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.setModulesToState(state);
+                        return [4 /*yield*/, state.start()];
+                    case 1:
+                        _a.sent();
+                        this.currentState = state;
+                        this.globals.set('currentState', state);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Set all modules to state
+     * @param state
+     */
+    Game.prototype.setModulesToState = function (state) {
+        // Pass modules to state
+        state.setModules({
+            config: this.config,
+            input: this.input,
+            globals: this.globals,
+            display: this.display,
+            loader: this.loader,
+            assets: this.assets
+        });
     };
     Game.prototype.update = function (dt) {
         var currentState = this.globals.get('currentState');
@@ -118,10 +153,9 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.render = function (g) {
         g.clear(this.display.width, this.display.height);
-        var currentState = this.globals.get('currentState');
-        if (currentState.canRender) {
-            currentState.render(g);
-            currentState.layers.render(g);
+        if (this.currentState.canRender) {
+            this.currentState.render(g);
+            this.currentState.layers.render(g);
         }
     };
     Game.prototype.runLoop = function () {

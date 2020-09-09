@@ -38,6 +38,8 @@ class Game {
 
     // Assets
     this.assets = Assets
+
+    this.globals.set('game', this)
   }
 
   async start (initialState: State) {
@@ -45,12 +47,44 @@ class Game {
       throw new Error('A initial state is required to start the game.')
     }
 
-    if (!(initialState instanceof State)) {
+    await this.initializeState(initialState)
+
+    this.runLoop()
+  }
+
+  async initializeState (state: State) {
+    if (!(state instanceof State)) {
       throw new Error('initialState should be an instance of State')
     }
 
     // Pass modules to state
-    initialState.setModules({
+    this.setModulesToState(state)
+
+    await state.start()
+
+    this.currentState = state
+    this.globals.set('currentState', state)
+  }
+
+  /**
+   * Set the current state of the game
+   */
+  async setCurrentState <T extends State>(state: T) {
+    this.setModulesToState(state)
+
+    await state.start()
+
+    this.currentState = state
+    this.globals.set('currentState', state)
+  }
+
+  /**
+   * Set all modules to state
+   * @param state
+   */
+  setModulesToState (state: State) {
+    // Pass modules to state
+    state.setModules({
       config: this.config,
       input: this.input,
       globals: this.globals,
@@ -58,20 +92,6 @@ class Game {
       loader: this.loader,
       assets: this.assets
     })
-
-    this.currentState = initialState
-    this.globals.set('currentState', initialState)
-
-    await this.globals.get('currentState').start()
-
-    this.runLoop()
-  }
-
-  /**
-   * Set the current state of the game
-   */
-  setCurrentState <T extends State>(state: T) {
-    this.globals.set('currentState', state)
   }
 
   update (dt: number) {
@@ -85,11 +105,9 @@ class Game {
   render (g: Graphics) {
     g.clear(this.display.width, this.display.height)
 
-    const currentState = <State> this.globals.get('currentState')
-
-    if (currentState.canRender) {
-      currentState.render(g)
-      currentState.layers.render(g)
+    if (this.currentState.canRender) {
+      this.currentState.render(g)
+      this.currentState.layers.render(g)
     }
   }
 
