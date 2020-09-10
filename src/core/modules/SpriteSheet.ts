@@ -24,7 +24,7 @@ class SpriteSheet {
   }
 
   defineTile (id: number, xCrop: number, yCrop: number, width?: number, height?: number) {
-    const tile = new Tile(this.image, xCrop, yCrop, width, height)
+    const tile = new Tile(this.image, { xCrop, yCrop, widthCrop: width, heightCrop: height })
     this.tiles.set(id, tile)
 
     return tile

@@ -1,5 +1,13 @@
 import { createBuffer } from '../helpers'
 
+interface TileOptions {
+  xCrop?: number;
+  yCrop?: number;
+  widthCrop?: number;
+  heightCrop?: number;
+  opacity?: number
+}
+
 class Tile {
   image: HTMLImageElement
   x: number
@@ -8,7 +16,10 @@ class Tile {
   height: number
   buffer: HTMLCanvasElement
 
-  constructor (image: HTMLImageElement, xCrop = 0, yCrop = 0, widthCrop?: number, heightCrop?: number) {
+  constructor (
+    image: HTMLImageElement,
+    { xCrop = 0, yCrop = 0, widthCrop, heightCrop }: TileOptions = {}
+  ) {
     this.image = image
     this.x = xCrop
     this.y = yCrop
