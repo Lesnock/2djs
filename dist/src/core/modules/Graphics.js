@@ -9,6 +9,12 @@ var Graphics = /** @class */ (function () {
     function Graphics(context) {
         this.context = context;
     }
+    Graphics.prototype.setLayers = function (layers) {
+        this.layers = layers;
+    };
+    Graphics.prototype.on = function (index) {
+        return this.layers.get(index).g;
+    };
     Graphics.prototype.clear = function (displayWidth, displayHeight) {
         this.context.clearRect(0, 0, displayWidth, displayHeight);
     };

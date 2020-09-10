@@ -31,7 +31,9 @@ class SpriteSheet {
   }
 
   defineSprite (name: string, xCrop: number, yCrop: number, width?: number, height?: number) {
-    const sprite = new Sprite(this.image, xCrop, yCrop, width, height)
+    const sprite = new Sprite(this.image, {
+      xCrop, yCrop, widthCrop: width, heightCrop: height
+    })
     this.sprites.set(name, sprite)
 
     return sprite

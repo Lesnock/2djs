@@ -62,6 +62,8 @@ class Game {
 
     await state.start()
 
+    this.display.graphics.setLayers(state.layers)
+
     this.currentState = state
     this.globals.set('currentState', state)
   }

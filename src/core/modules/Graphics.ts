@@ -2,12 +2,23 @@ import Tile from './Tile'
 import Sprite from './Sprite'
 import Animation from './Animation'
 import { AnimationFrame } from '../interfaces'
+import LayerManager from './layers/LayerManager'
 
 class Graphics {
   context: CanvasRenderingContext2D
 
+  private layers!: LayerManager
+
   constructor (context: CanvasRenderingContext2D) {
     this.context = context
+  }
+
+  setLayers (layers: LayerManager) {
+    this.layers = layers
+  }
+
+  on (index: number) {
+    return this.layers.get(index).g
   }
 
   clear (displayWidth: number, displayHeight: number) {

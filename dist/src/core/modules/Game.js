@@ -104,6 +104,7 @@ var Game = /** @class */ (function () {
                         return [4 /*yield*/, state.start()];
                     case 1:
                         _a.sent();
+                        this.display.graphics.setLayers(state.layers);
                         this.currentState = state;
                         this.globals.set('currentState', state);
                         return [2 /*return*/];
