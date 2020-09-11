@@ -11,25 +11,31 @@ class MouseController implements Controller {
     y: number
   }
 
-  private keys: {
+  buttons: {
     left: boolean
     right: boolean
-    scrollClick: boolean
+    scroll: boolean
+  }
+
+  private scrollEvents: {
+    up: Function []
+    down: Function []
   }
 
   constructor (game: Game) {
     this.canvasBounding = game.display.canvas.getBoundingClientRect()
 
     this.cursor = { x: 0, y: 0 }
-    this.keys = { left: false, right: false, scrollClick: false }
+    this.buttons = { left: false, right: false, scroll: false }
+    this.scrollEvents = { up: [], down: [] }
   }
 
-  get left () {
-    return this.keys.left
+  onScrollUp (callback: Function) {
+    this.scrollEvents.up.push(callback)
   }
 
-  get right () {
-    return this.keys.right
+  onScrollDown (callback: Function) {
+    this.scrollEvents.down.push(callback)
   }
 
   listener () {
@@ -51,13 +57,13 @@ class MouseController implements Controller {
       switch (event.button) {
         // left
         case 0:
-          this.keys.left = true
+          this.buttons.left = true
           break
         case 1:
-          this.keys.scrollClick = true
+          this.buttons.scroll = true
           break
         case 2:
-          this.keys.right = true
+          this.buttons.right = true
       }
     }
 
@@ -66,13 +72,27 @@ class MouseController implements Controller {
       switch (event.button) {
         // left
         case 0:
-          this.keys.left = false
+          this.buttons.left = false
           break
         case 1:
-          this.keys.scrollClick = true
+          this.buttons.scroll = false
           break
         case 2:
-          this.keys.right = false
+          this.buttons.right = false
+      }
+    }
+
+    document.onwheel = event => {
+      // Scrolling down
+      if (event.deltaY > 0) {
+        this.scrollEvents.down.forEach(callback => {
+          callback()
+        })
+      } else {
+        // Scrolling up
+        this.scrollEvents.up.forEach(callback => {
+          callback()
+        })
       }
     }
   }
