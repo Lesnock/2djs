@@ -34,7 +34,9 @@ class MouseController implements Controller {
 
   listener () {
     // Not show context on right click
-    document.oncontextmenu = event => {
+    const display = <HTMLCanvasElement> document.getElementById('display')
+
+    display.oncontextmenu = event => {
       event.preventDefault()
     }
 

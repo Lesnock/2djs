@@ -12,6 +12,7 @@ var Graphics_1 = __importDefault(require("./Graphics"));
  */
 function createCanvas(width, height) {
     var canvas = document.createElement('canvas');
+    canvas.id = 'display';
     canvas.width = width;
     canvas.height = height;
     canvas.style.setProperty('image-rendering', 'pixelated');

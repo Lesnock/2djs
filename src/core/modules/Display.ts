@@ -8,6 +8,7 @@ import Graphics from './Graphics'
 export function createCanvas (width: number, height: number): HTMLCanvasElement {
   const canvas = document.createElement('canvas')
 
+  canvas.id = 'display'
   canvas.width = width
   canvas.height = height
 
