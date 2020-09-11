@@ -8,7 +8,7 @@ export type Configs = {
   [key in ConfigName]?: any
 }
 
-export type ButtonName = 'Escape'
+export type KeyboardButtonName = 'Escape'
   | 'F1'
   | 'F2'
   | 'F3'

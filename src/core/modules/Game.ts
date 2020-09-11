@@ -27,7 +27,7 @@ class Game {
     this.display = new Display(this.config.width, this.config.height)
 
     // Start Input
-    this.input = new Input(this.config)
+    this.input = new Input(this, this.config)
     this.input.listener()
 
     // Start Globals

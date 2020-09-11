@@ -1,7 +1,21 @@
-import Controller from './Controller'
+import { Controller } from '../../../interfaces'
+import { KeyboardButtonName } from '../../../types'
 
-class KeyboardController extends Controller {
+class KeyboardController implements Controller {
   name = 'keyboard'
+
+  keys: { [name: string]: boolean; } = {}
+
+  /**
+   * Get status of a keyboard key
+   */
+  get (name: KeyboardButtonName): boolean {
+    if (!this.keys[name]) {
+      this.keys[name] = false
+    }
+
+    return this.keys[name]
+  }
 
   listener () {
     // Key Down

@@ -1,59 +1,29 @@
-import { ButtonName } from '../../types'
+import Game from '../Game'
 import { Configs } from '../../interfaces'
-import Controller from './controllers/Controller'
+import MouseController from './controllers/MouseController'
 import KeyboardController from './controllers/KeyboardController'
 
-const controllers: { [name: string]: Controller } = {}
-
 class Input {
+  keyboard: KeyboardController
+
+  mouse: MouseController
+
   private configs: Configs
 
-  constructor (configs: Configs) {
+  constructor (game: Game, configs: Configs) {
     this.configs = configs
 
+    this.keyboard = new KeyboardController()
+
+    this.mouse = new MouseController(game)
+
     // Keyboard Controller is the default
-    this.addController(new KeyboardController())
+    // this.addController(new KeyboardController())
   }
 
-  /**
-   * Get all available controllers
-   */
-  get controllers () {
-    return controllers
-  }
-
-  /**
-   * Get Controller instance
-   */
-  getController (name: string) {
-    return controllers[name]
-  }
-
-  /**
-   * Add Controller to Input system
-   */
-  addController (controller: Controller) {
-    controllers[controller.name] = controller
-  }
-
-  /**
-   * Shortcut for method 'get' of main controller
-   */
-  get (name: ButtonName) {
-    if (!controllers[this.configs.mainController]) {
-      throw new Error(`Controller ${this.configs.mainController} does not exists.`)
-    }
-
-    return controllers[this.configs.mainController].get(name)
-  }
-
-  /**
-   * Add listeners to keyboard keys
-   */
   listener () {
-    Object.keys(controllers).forEach(controllerName => {
-      controllers[controllerName].listener()
-    })
+    this.keyboard.listener()
+    this.mouse.listener()
   }
 }
 

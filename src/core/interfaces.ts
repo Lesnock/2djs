@@ -5,6 +5,10 @@ export interface DynamicObject {
   [key: string]: any;
 }
 
+export interface Controller {
+  listener (): void;
+}
+
 export interface Loader {
   load(path?: any): any;
 }

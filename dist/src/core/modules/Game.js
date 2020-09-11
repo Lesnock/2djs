@@ -64,7 +64,7 @@ var Game = /** @class */ (function () {
         // Start display
         this.display = new Display_1.default(this.config.width, this.config.height);
         // Start Input
-        this.input = new Input_1.default(this.config);
+        this.input = new Input_1.default(this, this.config);
         this.input.listener();
         // Start Globals
         this.globals = new Globals_1.default();
