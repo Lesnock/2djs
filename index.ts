@@ -1,5 +1,6 @@
 export { default as Game } from './src/core/modules/Game'
 export { default as Tile } from './src/core/modules/Tile'
+export { default as Grid } from './src/core/modules/Grid'
 export { default as State } from './src/core/modules/State'
 export { default as Assets } from './src/core/modules/Assets'
 export { default as Sprite } from './src/core/modules/Sprite'

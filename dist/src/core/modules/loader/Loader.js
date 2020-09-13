@@ -40,6 +40,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ImageLoader_1 = __importDefault(require("./ImageLoader"));
+var JsonLoader_1 = __importDefault(require("./JsonLoader"));
+var TilemapLoader_1 = __importDefault(require("./TilemapLoader"));
 var Loader = /** @class */ (function () {
     function Loader() {
     }
@@ -52,6 +54,30 @@ var Loader = /** @class */ (function () {
             return __generator(this, function (_a) {
                 loader = new ImageLoader_1.default();
                 return [2 /*return*/, loader.load(path)];
+            });
+        });
+    };
+    /**
+     * Load image
+     */
+    Loader.prototype.loadJSON = function (path) {
+        return __awaiter(this, void 0, void 0, function () {
+            var loader;
+            return __generator(this, function (_a) {
+                loader = new JsonLoader_1.default();
+                return [2 /*return*/, loader.load(path)];
+            });
+        });
+    };
+    /**
+     * Load tilemap
+     */
+    Loader.prototype.loadTilemap = function (path, tileset) {
+        return __awaiter(this, void 0, void 0, function () {
+            var loader;
+            return __generator(this, function (_a) {
+                loader = new TilemapLoader_1.default();
+                return [2 /*return*/, loader.load(path, tileset)];
             });
         });
     };

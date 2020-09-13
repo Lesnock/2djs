@@ -3,11 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpriteSheet = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tilemap = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Tile = exports.Game = void 0;
+exports.SpriteSheet = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tilemap = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Grid = exports.Tile = exports.Game = void 0;
 var Game_1 = require("./src/core/modules/Game");
 Object.defineProperty(exports, "Game", { enumerable: true, get: function () { return __importDefault(Game_1).default; } });
 var Tile_1 = require("./src/core/modules/Tile");
 Object.defineProperty(exports, "Tile", { enumerable: true, get: function () { return __importDefault(Tile_1).default; } });
+var Grid_1 = require("./src/core/modules/Grid");
+Object.defineProperty(exports, "Grid", { enumerable: true, get: function () { return __importDefault(Grid_1).default; } });
 var State_1 = require("./src/core/modules/State");
 Object.defineProperty(exports, "State", { enumerable: true, get: function () { return __importDefault(State_1).default; } });
 var Assets_1 = require("./src/core/modules/Assets");

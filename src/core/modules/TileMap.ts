@@ -3,33 +3,40 @@ import Grid from './Grid'
 import Tileset from './Tileset'
 import Graphics from './Graphics'
 
-class Tilemap {
-  map: Grid;
+interface MapLayer {
   rows: number;
   columns: number;
+  map: number[];
+}
+
+class Tilemap {
+  map: Grid[];
   tileset: Tileset;
 
-  constructor (tileset: Tileset, map: number[], rows: number = 0, columns: number = 0) {
+  constructor (tileset: Tileset, layers: MapLayer[]) {
     this.tileset = tileset
-    this.rows = rows
-    this.columns = columns
+    this.map = []
 
-    const grid = new Grid()
+    layers.forEach(layer => {
+      const grid = new Grid()
 
-    for (let row = 0; row < rows; row++) {
-      for (let column = 0; column < columns; column++) {
-        const index = ((row * columns) + column)
+      for (let row = 0; row < layer.rows; row++) {
+        for (let column = 0; column < layer.columns; column++) {
+          const index = ((row * layer.columns) + column)
 
-        grid.set(row, column, tileset.getTile(map[index]))
+          grid.set(row, column, tileset.getTile(layer.map[index]))
+        }
       }
-    }
 
-    this.map = grid
+      this.map.push(grid)
+    })
   }
 
   draw (g: Graphics) {
-    this.map.forEach((tile: Tile, row: number, column: number) => {
-      g.drawTile(tile, column * this.tileset.tileWidth, row * this.tileset.tileHeight)
+    this.map.forEach(layer => {
+      layer.forEach((tile: Tile, row: number, column: number) => {
+        g.drawTile(tile, column * this.tileset.tileWidth, row * this.tileset.tileHeight)
+      })
     })
   }
 }

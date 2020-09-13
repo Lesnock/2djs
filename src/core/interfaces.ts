@@ -1,5 +1,6 @@
 import Tile from './modules/Tile'
 import Sprite from './modules/Sprite'
+import Tilemap from './modules/Tilemap'
 
 export interface DynamicObject {
   [key: string]: any;
@@ -10,7 +11,7 @@ export interface Controller {
 }
 
 export interface Loader {
-  load(path?: any): any;
+  load(path?: any, ...others: any): any;
 }
 
 export interface Configs {
@@ -31,4 +32,17 @@ export interface Assets {
   sheets: Map<string, any>;
   audios: Map<string, any>;
   json: Map<string, any>;
+  tilemaps: Map<string, Tilemap>;
+}
+
+export interface MapLayer {
+  rows: number;
+  columns: number;
+  map: number[];
+}
+
+export interface JSONTilemap {
+  tilemap: {
+    layers: MapLayer[]
+  }
 }
