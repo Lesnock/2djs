@@ -1,10 +1,10 @@
 import { createBuffer } from '../helpers'
 
 interface SpriteOptions {
-  xCrop?: number;
-  yCrop?: number;
-  widthCrop?: number;
-  heightCrop?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   opacity?: number
 }
 
@@ -18,20 +18,18 @@ class Sprite {
 
   constructor (
     image: HTMLImageElement,
-    { xCrop = 0, yCrop = 0, widthCrop, heightCrop, opacity = 1 }: SpriteOptions
+    { x = 0, y = 0, width, height, opacity = 1 }: SpriteOptions
   ) {
     this.image = image
-    this.x = xCrop
-    this.y = yCrop
+    this.x = x
+    this.y = y
 
-    this.width = !widthCrop ? this.image.width : widthCrop
-    this.height = !heightCrop ? this.image.height : heightCrop
+    this.width = !width ? this.image.width : width
+    this.height = !height ? this.image.height : height
 
     const buffer = createBuffer(this.width, this.height)
 
     const context = <CanvasRenderingContext2D> buffer.getContext('2d')
-
-    // context.save()
 
     // Opacity
     context.globalAlpha = opacity
@@ -43,8 +41,6 @@ class Sprite {
         this.width, this.height,
         0, 0, this.width, this.height
       )
-
-    // context.restore()
 
     this.buffer = buffer
   }

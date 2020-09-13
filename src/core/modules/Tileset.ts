@@ -1,4 +1,4 @@
-import ImageLoader from './loader/ImageLoader'
+import Tile from './Tile'
 
 class Tileset {
   image!: HTMLImageElement;
@@ -6,31 +6,36 @@ class Tileset {
   tileHeight: number;
   rows: number;
   columns: number;
+  tiles: Tile[];
 
   constructor (
-    image: HTMLImageElement | string,
+    image: HTMLImageElement,
     tileWidth = 16,
     tileHeight = 16,
     rows: number,
     columns: number
   ) {
-    let _image: unknown = null
-
-    // Load image
-    if (typeof image === 'string') {
-      const imageLoader = new ImageLoader()
-      imageLoader.load(image)
-        .then(loadedImage => { _image = loadedImage })
-    } else {
-      _image = image
-    }
-
-    this.image = <HTMLImageElement> _image
+    this.image = image
 
     this.tileWidth = tileWidth
     this.tileHeight = tileHeight
     this.rows = rows
     this.columns = columns
+    this.tiles = []
+
+    for (let row = 0; row < this.rows; row++) {
+      for (let column = 0; column < this.columns; column++) {
+        const x = column * this.tileWidth
+        const y = row * this.tileHeight
+
+        this.tiles.push(new Tile(this.image, {
+          x,
+          y,
+          width: this.tileWidth,
+          height: this.tileHeight
+        }))
+      }
+    }
   }
 
   /**
@@ -38,6 +43,14 @@ class Tileset {
    */
   get total () {
     return this.rows * this.columns
+  }
+
+  /**
+   * Get specific tile on Tileset
+   * @param index
+   */
+  getTile (index: number) {
+    return this.tiles[index]
   }
 }
 

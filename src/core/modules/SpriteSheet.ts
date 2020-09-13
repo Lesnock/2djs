@@ -23,16 +23,16 @@ class SpriteSheet {
     this.animations = new Map()
   }
 
-  defineTile (id: number, xCrop: number, yCrop: number, width?: number, height?: number) {
-    const tile = new Tile(this.image, { xCrop, yCrop, widthCrop: width, heightCrop: height })
+  defineTile (id: number, x: number, y: number, width?: number, height?: number) {
+    const tile = new Tile(this.image, { x, y, width: width, height: height })
     this.tiles.set(id, tile)
 
     return tile
   }
 
-  defineSprite (name: string, xCrop: number, yCrop: number, width?: number, height?: number) {
+  defineSprite (name: string, x: number, y: number, width?: number, height?: number) {
     const sprite = new Sprite(this.image, {
-      xCrop, yCrop, widthCrop: width, heightCrop: height
+      x, y, width: width, height: height
     })
     this.sprites.set(name, sprite)
 

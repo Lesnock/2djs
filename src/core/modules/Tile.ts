@@ -1,10 +1,10 @@
 import { createBuffer } from '../helpers'
 
 interface TileOptions {
-  xCrop?: number;
-  yCrop?: number;
-  widthCrop?: number;
-  heightCrop?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   opacity?: number
 }
 
@@ -18,14 +18,14 @@ class Tile {
 
   constructor (
     image: HTMLImageElement,
-    { xCrop = 0, yCrop = 0, widthCrop, heightCrop }: TileOptions = {}
+    { x = 0, y = 0, width, height }: TileOptions = {}
   ) {
     this.image = image
-    this.x = xCrop
-    this.y = yCrop
+    this.x = x
+    this.y = y
 
-    this.width = !widthCrop ? this.image.width : widthCrop
-    this.height = !heightCrop ? this.image.height : heightCrop
+    this.width = !width ? this.image.width : width
+    this.height = !height ? this.image.height : height
 
     const buffer = createBuffer(this.width, this.height)
 
