@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpriteSheet = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Tile = exports.Game = void 0;
+exports.SpriteSheet = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tilemap = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Tile = exports.Game = void 0;
 var Game_1 = require("./src/core/modules/Game");
 Object.defineProperty(exports, "Game", { enumerable: true, get: function () { return __importDefault(Game_1).default; } });
 var Tile_1 = require("./src/core/modules/Tile");
@@ -22,6 +22,8 @@ var Display_1 = require("./src/core/modules/Display");
 Object.defineProperty(exports, "Display", { enumerable: true, get: function () { return __importDefault(Display_1).default; } });
 var Tileset_1 = require("./src/core/modules/Tileset");
 Object.defineProperty(exports, "Tileset", { enumerable: true, get: function () { return __importDefault(Tileset_1).default; } });
+var Tilemap_1 = require("./src/core/modules/Tilemap");
+Object.defineProperty(exports, "Tilemap", { enumerable: true, get: function () { return __importDefault(Tilemap_1).default; } });
 var Input_1 = require("./src/core/modules/input/Input");
 Object.defineProperty(exports, "Input", { enumerable: true, get: function () { return __importDefault(Input_1).default; } });
 var Graphics_1 = require("./src/core/modules/Graphics");
