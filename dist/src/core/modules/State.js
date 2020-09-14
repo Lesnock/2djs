@@ -65,18 +65,6 @@ var State = /** @class */ (function () {
     State.prototype.render = function (g) { };
     ;
     /**
-     * Set Game Modules
-     */
-    State.prototype.setModules = function (_a) {
-        var config = _a.config, input = _a.input, display = _a.display, globals = _a.globals, loader = _a.loader, assets = _a.assets;
-        this.config = config;
-        this.input = input;
-        this.display = display;
-        this.globals = globals;
-        this.loader = loader;
-        this.assets = assets;
-    };
-    /**
      * Start
      */
     State.prototype.start = function (props) {

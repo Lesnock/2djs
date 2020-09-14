@@ -93,6 +93,7 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.initializeState = function (state) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -100,10 +101,26 @@ var Game = /** @class */ (function () {
                             throw new Error('initialState should be an instance of State');
                         }
                         // Pass modules to state
-                        this.setModulesToState(state);
-                        return [4 /*yield*/, state.start()];
+                        this.setModulesToObject(state);
+                        return [4 /*yield*/, state.start()
+                            // Start gameObjects
+                        ];
                     case 1:
                         _a.sent();
+                        // Start gameObjects
+                        state.gameObjects.forEach(function (gameobject) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        this.setModulesToObject(gameobject);
+                                        gameobject.state = state;
+                                        return [4 /*yield*/, gameobject.start()];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
                         this.display.graphics.setLayers(state.layers);
                         this.currentState = state;
                         this.globals.set('currentState', state);
@@ -117,50 +134,28 @@ var Game = /** @class */ (function () {
      */
     Game.prototype.setCurrentState = function (state) {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        this.setModulesToState(state);
-                        // Start state
-                        return [4 /*yield*/, state.start()
-                            // Start gameObjects
-                        ];
+                    case 0: return [4 /*yield*/, this.initializeState(state)];
                     case 1:
-                        // Start state
                         _a.sent();
-                        // Start gameObjects
-                        state.gameObjects.forEach(function (gameobject) { return __awaiter(_this, void 0, void 0, function () {
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0: return [4 /*yield*/, gameobject.start()];
-                                    case 1:
-                                        _a.sent();
-                                        return [2 /*return*/];
-                                }
-                            });
-                        }); });
-                        this.currentState = state;
-                        this.globals.set('currentState', state);
                         return [2 /*return*/];
                 }
             });
         });
     };
     /**
-     * Set all modules to state
+     * Set all modules to classes that implements Modules
      * @param state
      */
-    Game.prototype.setModulesToState = function (state) {
-        // Pass modules to state
-        state.setModules({
-            config: this.config,
-            input: this.input,
-            globals: this.globals,
-            display: this.display,
-            loader: this.loader,
-            assets: this.assets
-        });
+    Game.prototype.setModulesToObject = function (object) {
+        // Pass modules to object
+        object.config = this.config;
+        object.input = this.input;
+        object.globals = this.globals;
+        object.display = this.display;
+        object.loader = this.loader;
+        object.assets = this.assets;
     };
     Game.prototype.update = function (dt) {
         var currentState = this.globals.get('currentState');
@@ -172,8 +167,8 @@ var Game = /** @class */ (function () {
     Game.prototype.render = function (g) {
         g.clear(this.display.width, this.display.height);
         if (this.currentState.canRender) {
-            this.currentState.superRender(g);
             this.currentState.render(g);
+            this.currentState.superRender(g);
             this.currentState.layers.render(g);
         }
     };

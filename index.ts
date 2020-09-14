@@ -14,6 +14,7 @@ export { default as Graphics } from './src/core/modules/Graphics'
 export { default as Animation } from './src/core/modules/Animation'
 export { default as Loader } from './src/core/modules/loader/Loader'
 export { default as Vector2D } from './src/core/modules/math/Vector'
+export { default as GameObject } from './src/core/modules/GameObject'
 export { default as SpriteSheet } from './src/core/modules/SpriteSheet'
 
 export {

@@ -4,21 +4,24 @@ import Input from './input/Input'
 import Graphics from './Graphics'
 import Loader from './loader/Loader'
 import GameObject from './GameObject'
-import { Configs, Assets } from '../interfaces'
 import LayerManager from './layers/LayerManager'
+import { Configs, Assets, Modules } from '../interfaces'
 
 interface ChangeStateOptions {
   stopUpdate?: boolean;
   stopRender?: boolean
 }
 
-abstract class State {
+abstract class State implements Modules {
+  // Modules
   config!: Configs
   input!: Input
   display!: Display
   globals!: Globals
   loader!: Loader
   assets!: Assets
+
+  // Layer
   layers: LayerManager
   canUpdate = true
   canRender = true
@@ -48,18 +51,6 @@ abstract class State {
 
   update (dt: number): void {};
   render (g: Graphics): void {};
-
-  /**
-   * Set Game Modules
-   */
-  setModules ({ config, input, display, globals, loader, assets }: any) {
-    this.config = config
-    this.input = input
-    this.display = display
-    this.globals = globals
-    this.loader = loader
-    this.assets = assets
-  }
 
   /**
    * Start

@@ -9,6 +9,14 @@ class LayerManager {
   }
 
   add (options: LayerOptions = {}) {
+    if (options.name) {
+      const hasName = this.layers.find(layer => layer.name === options.name)
+
+      if (hasName) {
+        throw new Error(`Layer ${options.name} already exists`)
+      }
+    }
+
     const nextIndex = this.layers.length
 
     const layer = new Layer(options)

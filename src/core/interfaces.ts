@@ -1,6 +1,10 @@
 import Tile from './modules/Tile'
 import Sprite from './modules/Sprite'
+import Display from './modules/Display'
+import Globals from './modules/Globals'
 import Tilemap from './modules/Tilemap'
+import Input from './modules/input/Input'
+import ParentLoader from './modules/loader/Loader'
 
 export interface DynamicObject {
   [key: string]: any;
@@ -10,16 +14,25 @@ export interface Controller {
   listener (): void;
 }
 
-export interface Loader {
-  load(path?: any, ...others: any): any;
-}
-
 export interface Configs {
   title: string;
   width: number;
   height: number;
   fps: number;
   mainController: string;
+}
+
+export interface Loader {
+  load(path: string, ...args: any): any;
+}
+
+export interface Modules {
+  config: Configs
+  input: Input
+  display: Display
+  globals: Globals
+  loader: ParentLoader
+  assets: Assets
 }
 
 export interface AnimationFrame {

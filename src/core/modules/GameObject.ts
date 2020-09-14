@@ -1,9 +1,26 @@
+import Globals from './Globals'
+import Display from './Display'
 import Point from './math/Point'
+import Input from './input/Input'
 import Graphics from './Graphics'
+import State from './State'
 import Vector from './math/Vector'
 import Component from './Component'
+import Loader from './loader/Loader'
+import { Assets, Configs, Modules } from '../interfaces'
 
-abstract class GameObject {
+abstract class GameObject implements Modules {
+  // Modules
+  config!: Configs
+  input!: Input
+  display!: Display
+  globals!: Globals
+  loader!: Loader
+  assets!: Assets
+
+  // State
+  state!: State
+
   position: Point
   velocity: Vector
   private components: Component[]

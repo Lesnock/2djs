@@ -13,6 +13,10 @@ var Graphics = /** @class */ (function () {
         this.layers = layers;
     };
     Graphics.prototype.on = function (index) {
+        if (typeof index === 'string') {
+            var layerIndex = this.layers.layers.findIndex(function (layer) { return layer.name === index; });
+            return this.layers.get(layerIndex).g;
+        }
         return this.layers.get(index).g;
     };
     Graphics.prototype.clear = function (displayWidth, displayHeight) {
@@ -63,6 +67,9 @@ var Graphics = /** @class */ (function () {
         this.context.drawImage(bufferOrImage, x, y, dWidth, dHeight);
         this.context.restore();
         animation.update();
+    };
+    Graphics.prototype.drawTilemap = function (tilemap) {
+        tilemap.draw(this);
     };
     return Graphics;
 }());

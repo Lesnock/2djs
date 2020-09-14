@@ -7,7 +7,7 @@ import Graphics from './Graphics'
 import Input from './input/Input'
 import Loader from './loader/Loader'
 import { ConfigName } from '../types'
-import { Configs, Assets as IAssets } from '../interfaces'
+import { Configs, Assets as IAssets, Modules } from '../interfaces'
 
 class Game {
   config: Configs
@@ -58,13 +58,21 @@ class Game {
     }
 
     // Pass modules to state
-    this.setModulesToState(state)
+    this.setModulesToObject(state)
 
     await state.start()
+
+    // Start gameObjects
+    state.gameObjects.forEach(async gameobject => {
+      this.setModulesToObject(gameobject)
+      gameobject.state = state
+      await gameobject.start()
+    })
 
     this.display.graphics.setLayers(state.layers)
 
     this.currentState = state
+
     this.globals.set('currentState', state)
   }
 
@@ -72,34 +80,21 @@ class Game {
    * Set the current state of the game
    */
   async setCurrentState <T extends State>(state: T) {
-    this.setModulesToState(state)
-
-    // Start state
-    await state.start()
-
-    // Start gameObjects
-    state.gameObjects.forEach(async gameobject => {
-      await gameobject.start()
-    })
-
-    this.currentState = state
-    this.globals.set('currentState', state)
+    await this.initializeState(state)
   }
 
   /**
-   * Set all modules to state
+   * Set all modules to classes that implements Modules
    * @param state
    */
-  setModulesToState (state: State) {
-    // Pass modules to state
-    state.setModules({
-      config: this.config,
-      input: this.input,
-      globals: this.globals,
-      display: this.display,
-      loader: this.loader,
-      assets: this.assets
-    })
+  setModulesToObject (object: Modules) {
+    // Pass modules to object
+    object.config = this.config
+    object.input = this.input
+    object.globals = this.globals
+    object.display = this.display
+    object.loader = this.loader
+    object.assets = this.assets
   }
 
   update (dt: number) {
@@ -115,8 +110,8 @@ class Game {
     g.clear(this.display.width, this.display.height)
 
     if (this.currentState.canRender) {
-      this.currentState.superRender(g)
       this.currentState.render(g)
+      this.currentState.superRender(g)
       this.currentState.layers.render(g)
     }
   }

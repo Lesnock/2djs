@@ -1,5 +1,6 @@
 import Tile from './Tile'
 import Sprite from './Sprite'
+import Tilemap from './Tilemap'
 import Animation from './Animation'
 import { AnimationFrame } from '../interfaces'
 import LayerManager from './layers/LayerManager'
@@ -17,7 +18,12 @@ class Graphics {
     this.layers = layers
   }
 
-  on (index: number) {
+  on (index: number | string) {
+    if (typeof index === 'string') {
+      const layerIndex = this.layers.layers.findIndex(layer => layer.name === index)
+      return this.layers.get(layerIndex).g
+    }
+
     return this.layers.get(index).g
   }
 
@@ -96,6 +102,10 @@ class Graphics {
     this.context.restore()
 
     animation.update()
+  }
+
+  drawTilemap (tilemap: Tilemap) {
+    tilemap.draw(this)
   }
 }
 

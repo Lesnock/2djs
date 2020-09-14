@@ -3,6 +3,7 @@ import Graphics from '../Graphics'
 import { createCanvas } from '../Display'
 
 export interface LayerOptions {
+  name?: string;
   width?: number;
   height?: number;
   opacity?: number;
@@ -10,15 +11,17 @@ export interface LayerOptions {
 }
 
 class Layer {
+  name?: string
   g: Graphics
   isVisible = true
   opacity: number
 
   private canvas: HTMLCanvasElement
 
-  constructor ({ width, height, opacity = 1, isVisible = true }: LayerOptions = {}) {
-    const _width = !width ? configs.width : width
+  constructor ({ name, width, height, opacity = 1, isVisible = true }: LayerOptions = {}) {
+    this.name = name
 
+    const _width = !width ? configs.width : width
     const _height = !height ? configs.height : height
 
     // Create canvas and context
