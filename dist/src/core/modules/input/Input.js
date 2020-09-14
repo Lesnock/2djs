@@ -10,8 +10,6 @@ var Input = /** @class */ (function () {
         this.configs = configs;
         this.keyboard = new KeyboardController_1.default();
         this.mouse = new MouseController_1.default(game);
-        // Keyboard Controller is the default
-        // this.addController(new KeyboardController())
     }
     Input.prototype.listener = function () {
         this.keyboard.listener();

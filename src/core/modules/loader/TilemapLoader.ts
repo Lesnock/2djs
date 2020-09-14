@@ -1,8 +1,8 @@
 import Assets from '../Assets'
 import Tilemap from '../Tilemap'
 import Tileset from '../Tileset'
-import { Loader, JSONTilemap } from '../../interfaces'
 import JsonLoader from './JsonLoader'
+import { Loader, JSONTilemap } from '../../interfaces'
 
 class TilemapLoader implements Loader {
   load (path: string, tileset: Tileset): Promise<Tilemap> {
@@ -15,7 +15,7 @@ class TilemapLoader implements Loader {
     return new Promise(resolve => {
       (new JsonLoader()).load<JSONTilemap>(path)
         .then(json => {
-          resolve(new Tilemap(tileset, json.tilemap.layers))
+          resolve(new Tilemap(json.tilemap.layers, tileset))
         })
     })
   }

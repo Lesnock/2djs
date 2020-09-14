@@ -2,19 +2,15 @@ import Tile from './Tile'
 import Grid from './Grid'
 import Tileset from './Tileset'
 import Graphics from './Graphics'
-
-interface MapLayer {
-  rows: number;
-  columns: number;
-  map: number[];
-}
+import { MapLayer } from '../interfaces'
 
 class Tilemap {
   map: Grid[];
-  tileset: Tileset;
+  tileset: Tileset
 
-  constructor (tileset: Tileset, layers: MapLayer[]) {
+  constructor (layers: MapLayer[], tileset: Tileset) {
     this.tileset = tileset
+
     this.map = []
 
     layers.forEach(layer => {

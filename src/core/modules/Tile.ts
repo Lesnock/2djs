@@ -1,12 +1,5 @@
 import { createBuffer } from '../helpers'
-
-interface TileOptions {
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  opacity?: number
-}
+import { TileOptions } from '../interfaces'
 
 class Tile {
   image: HTMLImageElement

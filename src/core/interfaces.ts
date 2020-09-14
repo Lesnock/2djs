@@ -27,6 +27,14 @@ export interface AnimationFrame {
   speed: number;
 }
 
+export interface TileOptions {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  opacity?: number
+}
+
 export interface Assets {
   images: Map<string, HTMLImageElement>;
   sheets: Map<string, any>;
