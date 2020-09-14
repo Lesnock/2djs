@@ -46,7 +46,18 @@ var State = /** @class */ (function () {
         this.canRender = true;
         this.isChangingState = false;
         this.layers = new LayerManager_1.default();
+        this.gameObjects = [];
     }
+    State.prototype.superUpdate = function (dt) {
+        this.gameObjects.forEach(function (gameObject) {
+            gameObject.update(dt);
+        });
+    };
+    State.prototype.superRender = function (g) {
+        this.gameObjects.forEach(function (gameObject) {
+            gameObject.render(g);
+        });
+    };
     State.prototype.update = function (dt) { };
     ;
     State.prototype.render = function (g) { };
@@ -92,6 +103,15 @@ var State = /** @class */ (function () {
      */
     State.prototype.onLayer = function (index) {
         return this.layers.get(index).g;
+    };
+    /**
+     * Add Game Object to State, will update and render automatically
+     * @param gameObject
+     * @returns gameObject
+     */
+    State.prototype.addGameObject = function (gameObject) {
+        var length = this.gameObjects.push(gameObject);
+        return this.gameObjects[length - 1];
     };
     return State;
 }());

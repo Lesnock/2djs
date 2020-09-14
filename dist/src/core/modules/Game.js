@@ -149,12 +149,14 @@ var Game = /** @class */ (function () {
     Game.prototype.update = function (dt) {
         var currentState = this.globals.get('currentState');
         if (currentState.canUpdate) {
+            currentState.superUpdate(dt);
             currentState.update(dt);
         }
     };
     Game.prototype.render = function (g) {
         g.clear(this.display.width, this.display.height);
         if (this.currentState.canRender) {
+            this.currentState.superRender(g);
             this.currentState.render(g);
             this.currentState.layers.render(g);
         }

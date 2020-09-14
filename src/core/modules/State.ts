@@ -3,6 +3,7 @@ import Display from './Display'
 import Input from './input/Input'
 import Graphics from './Graphics'
 import Loader from './loader/Loader'
+import GameObject from './GameObject'
 import { Configs, Assets } from '../interfaces'
 import LayerManager from './layers/LayerManager'
 
@@ -22,10 +23,25 @@ abstract class State {
   canUpdate = true
   canRender = true
 
+  gameObjects: GameObject[]
+
   private isChangingState = false
 
   constructor () {
     this.layers = new LayerManager()
+    this.gameObjects = []
+  }
+
+  superUpdate (dt: number) {
+    this.gameObjects.forEach(gameObject => {
+      gameObject.update(dt)
+    })
+  }
+
+  superRender (g: Graphics) {
+    this.gameObjects.forEach(gameObject => {
+      gameObject.render(g)
+    })
   }
 
   update (dt: number): void {};
@@ -66,6 +82,16 @@ abstract class State {
    */
   onLayer (index: number) {
     return this.layers.get(index).g
+  }
+
+  /**
+   * Add Game Object to State, will update and render automatically
+   * @param gameObject
+   * @returns gameObject
+   */
+  addGameObject (gameObject: GameObject) {
+    const length = this.gameObjects.push(gameObject)
+    return this.gameObjects[length - 1]
   }
 }
 

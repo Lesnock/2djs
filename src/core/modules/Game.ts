@@ -100,6 +100,7 @@ class Game {
     const currentState = this.globals.get('currentState')
 
     if (currentState.canUpdate) {
+      currentState.superUpdate(dt)
       currentState.update(dt)
     }
   }
@@ -108,6 +109,7 @@ class Game {
     g.clear(this.display.width, this.display.height)
 
     if (this.currentState.canRender) {
+      this.currentState.superRender(g)
       this.currentState.render(g)
       this.currentState.layers.render(g)
     }

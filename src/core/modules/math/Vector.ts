@@ -1,4 +1,4 @@
-class Vector2D {
+class Vector {
   x: number;
   y: number;
 
@@ -7,7 +7,7 @@ class Vector2D {
     this.y = y
   }
 
-  addVector (vector: Vector2D) {
+  addVector (vector: Vector) {
     this.x += vector.x
     this.y += vector.y
   }
@@ -18,4 +18,4 @@ class Vector2D {
   }
 }
 
-export default Vector2D
+export default Vector
