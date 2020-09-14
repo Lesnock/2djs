@@ -16,9 +16,6 @@ class Input {
     this.keyboard = new KeyboardController()
 
     this.mouse = new MouseController(game)
-
-    // Keyboard Controller is the default
-    // this.addController(new KeyboardController())
   }
 
   listener () {

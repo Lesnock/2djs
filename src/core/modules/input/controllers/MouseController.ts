@@ -47,13 +47,13 @@ class MouseController implements Controller {
     }
 
     // Set cursor position
-    document.onmousemove = event => {
+    display.onmousemove = event => {
       this.cursor.x = event.clientX - this.canvasBounding.left
       this.cursor.y = event.clientY - this.canvasBounding.top
     }
 
     // On button click
-    document.onmousedown = event => {
+    display.onmousedown = event => {
       switch (event.button) {
         // left
         case 0:
@@ -68,7 +68,7 @@ class MouseController implements Controller {
     }
 
     // On button release
-    document.onmouseup = event => {
+    display.onmouseup = event => {
       switch (event.button) {
         // left
         case 0:
@@ -82,7 +82,7 @@ class MouseController implements Controller {
       }
     }
 
-    document.onwheel = event => {
+    display.onwheel = event => {
       // Scrolling down
       if (event.deltaY > 0) {
         this.scrollEvents.down.forEach(callback => {
