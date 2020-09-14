@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpriteSheet = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tilemap = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Grid = exports.Tile = exports.Game = void 0;
+exports.SpriteSheet = exports.Vector2D = exports.Loader = exports.Animation = exports.Graphics = exports.Input = exports.Tilemap = exports.Tileset = exports.Display = exports.Configs = exports.Globals = exports.Sprite = exports.Assets = exports.State = exports.Grid = exports.Tile = exports.Game = void 0;
 var Game_1 = require("./src/core/modules/Game");
 Object.defineProperty(exports, "Game", { enumerable: true, get: function () { return __importDefault(Game_1).default; } });
 var Tile_1 = require("./src/core/modules/Tile");
@@ -34,5 +34,7 @@ var Animation_1 = require("./src/core/modules/Animation");
 Object.defineProperty(exports, "Animation", { enumerable: true, get: function () { return __importDefault(Animation_1).default; } });
 var Loader_1 = require("./src/core/modules/loader/Loader");
 Object.defineProperty(exports, "Loader", { enumerable: true, get: function () { return __importDefault(Loader_1).default; } });
+var Vector2D_1 = require("./src/core/modules/math/Vector2D");
+Object.defineProperty(exports, "Vector2D", { enumerable: true, get: function () { return __importDefault(Vector2D_1).default; } });
 var SpriteSheet_1 = require("./src/core/modules/SpriteSheet");
 Object.defineProperty(exports, "SpriteSheet", { enumerable: true, get: function () { return __importDefault(SpriteSheet_1).default; } });
