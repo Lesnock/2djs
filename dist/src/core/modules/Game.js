@@ -117,13 +117,29 @@ var Game = /** @class */ (function () {
      */
     Game.prototype.setCurrentState = function (state) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.setModulesToState(state);
-                        return [4 /*yield*/, state.start()];
+                        // Start state
+                        return [4 /*yield*/, state.start()
+                            // Start gameObjects
+                        ];
                     case 1:
+                        // Start state
                         _a.sent();
+                        // Start gameObjects
+                        state.gameObjects.forEach(function (gameobject) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, gameobject.start()];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
                         this.currentState = state;
                         this.globals.set('currentState', state);
                         return [2 /*return*/];

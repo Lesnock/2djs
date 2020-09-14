@@ -34,12 +34,14 @@ abstract class State {
 
   superUpdate (dt: number) {
     this.gameObjects.forEach(gameObject => {
+      gameObject.superUpdate(dt)
       gameObject.update(dt)
     })
   }
 
   superRender (g: Graphics) {
     this.gameObjects.forEach(gameObject => {
+      gameObject.superRender(g)
       gameObject.render(g)
     })
   }

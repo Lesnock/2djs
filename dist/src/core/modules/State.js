@@ -50,11 +50,13 @@ var State = /** @class */ (function () {
     }
     State.prototype.superUpdate = function (dt) {
         this.gameObjects.forEach(function (gameObject) {
+            gameObject.superUpdate(dt);
             gameObject.update(dt);
         });
     };
     State.prototype.superRender = function (g) {
         this.gameObjects.forEach(function (gameObject) {
+            gameObject.superRender(g);
             gameObject.render(g);
         });
     };

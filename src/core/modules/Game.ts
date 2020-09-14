@@ -74,7 +74,13 @@ class Game {
   async setCurrentState <T extends State>(state: T) {
     this.setModulesToState(state)
 
+    // Start state
     await state.start()
+
+    // Start gameObjects
+    state.gameObjects.forEach(async gameobject => {
+      await gameobject.start()
+    })
 
     this.currentState = state
     this.globals.set('currentState', state)
